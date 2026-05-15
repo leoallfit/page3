@@ -187,295 +187,345 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
 }
 @media(max-width:480px){.hero h1{font-size:30px}.hero-cta{padding:15px 24px;font-size:14px}}
 
-/* ══════════════════════════════
-   ADMIN PANEL STYLES
-══════════════════════════════ */
-#adm-overlay{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:rgba(10,15,28,.8);backdrop-filter:blur(6px)}
+/* ═══════════════════════════════════
+   ADMIN PANEL v2
+═══════════════════════════════════ */
+#adm-overlay{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:rgba(5,10,20,.88);backdrop-filter:blur(8px)}
 #adm-overlay.open{display:flex}
-#adm-shell{position:relative;width:calc(100vw - 32px);height:calc(100vh - 32px);max-width:1100px;max-height:900px;background:#F1F5F9;border-radius:18px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;animation:slideUp .25s ease}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+#adm-shell{width:calc(100vw - 20px);height:calc(100vh - 20px);max-width:1280px;max-height:860px;border-radius:20px;overflow:hidden;box-shadow:0 48px 120px rgba(0,0,0,.75);display:flex;flex-direction:column;animation:admIn .22s cubic-bezier(.16,1,.3,1)}
+@keyframes admIn{from{transform:scale(.96) translateY(16px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
 #adm-shell *{box-sizing:border-box}
-/* login */
-.adm-login{display:flex;align-items:center;justify-content:center;height:100%;background:#0F172A}
-.adm-login-card{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:360px;text-align:center}
-.adm-login-logo{font-size:24px;font-weight:900;color:#1E293B;margin-bottom:8px}
-.adm-login-logo span{color:#2563EB}
-.adm-login-card h2{font-size:20px;font-weight:800;margin-bottom:6px}
-.adm-login-card p{font-size:13px;color:#64748B;margin-bottom:24px}
-.adm-login-card input{width:100%;border:1.5px solid #E2E8F0;border-radius:8px;padding:12px;font-size:14px;outline:none;font-family:inherit;margin-bottom:12px}
-.adm-login-card input:focus{border-color:#2563EB;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.adm-btn-primary{width:100%;background:#2563EB;color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
-.adm-btn-primary:hover{background:#1D4ED8}
-.adm-login-err{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:8px 12px;font-size:13px;margin-bottom:12px;display:none}
-/* layout */
-.adm-body{display:flex;flex:1;min-height:0;overflow:hidden}
-.adm-sidebar{width:200px;background:#0F172A;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
-.adm-sidebar-logo{font-size:18px;font-weight:900;color:#fff;padding:20px 16px 16px;letter-spacing:-.5px}
-.adm-sidebar-logo span{color:#2563EB}
-.adm-nav{flex:1;padding:4px 10px;display:flex;flex-direction:column;gap:2px}
-.adm-nav-btn{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;border:none;background:none;color:#94A3B8;font-size:12px;font-weight:500;width:100%;text-align:left;cursor:pointer;transition:background .2s,color .2s;font-family:inherit}
-.adm-nav-btn:hover{background:#1E293B;color:#E2E8F0}
-.adm-nav-btn.active{background:#1E40AF;color:#fff}
-.adm-logout{padding:14px 16px;border:none;background:none;color:#475569;font-size:12px;cursor:pointer;border-top:1px solid #1E293B;font-family:inherit;transition:color .2s;flex-shrink:0}
-.adm-logout:hover{color:#EF4444}
-/* main */
-.adm-main{flex:1;position:relative;min-width:0;overflow:hidden}
-.adm-topbar{position:absolute;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#fff;border-bottom:1px solid #E2E8F0;z-index:2}
-.adm-topbar h2{font-size:15px;font-weight:700;color:#1E293B}
-.adm-close-btn{width:30px;height:30px;border-radius:50%;background:#F1F5F9;border:none;color:#64748B;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.adm-close-btn:hover{background:#FEE2E2;color:#DC2626}
-.adm-toast{position:absolute;top:60px;right:16px;z-index:10;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .3s;pointer-events:none;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0}
-.adm-toast.show{opacity:1;transform:translateY(0)}
-.adm-toast.err{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
-/* panels */
-.adm-panels{position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:scroll;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#94A3B8 #E2E8F0;scrollbar-gutter:stable}
-.adm-panels::-webkit-scrollbar{width:10px;display:block}
-.adm-panels::-webkit-scrollbar-track{background:#E2E8F0}
-.adm-panels::-webkit-scrollbar-thumb{background:#94A3B8;border-radius:6px;border:2px solid #E2E8F0;min-height:40px}
-.adm-panels::-webkit-scrollbar-thumb:hover{background:#475569}
-.adm-panel{display:none;padding:20px 16px 20px 20px}
-.adm-panel.active{display:block}
-/* form elements */
-.adm-section{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:18px;margin-bottom:14px}
-.adm-section h3{font-size:12px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
-.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.adm-field{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
-.adm-field:last-child{margin-bottom:0}
-.adm-field label{font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em}
-.adm-field input,.adm-field select,.adm-field textarea{border:1.5px solid #E2E8F0;border-radius:7px;padding:8px 10px;font-size:13px;color:#1E293B;background:#F8FAFC;outline:none;font-family:inherit;transition:border-color .2s}
-.adm-field input:focus,.adm-field select:focus,.adm-field textarea:focus{border-color:#2563EB;background:#fff}
-.adm-field textarea{resize:vertical;min-height:70px}
-.adm-save-btn{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
-.adm-save-btn:hover{background:#1D4ED8}
-.adm-actions{display:flex;gap:10px;margin-bottom:16px;align-items:center}
-.adm-add-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:#EFF6FF;color:#2563EB;border:1.5px dashed #BFDBFE;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;transition:background .2s,border-color .2s;margin-top:4px}
+/* ── LOGIN ── */
+#adm-login{display:flex;height:100%}
+.adm-login-left{flex:1;background:linear-gradient(145deg,#060D1F 0%,#0F2952 60%,#1a3a6e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
+.adm-login-left::before{content:'';position:absolute;top:-120px;right:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(37,99,235,.3) 0%,transparent 65%);pointer-events:none}
+.adm-login-left::after{content:'';position:absolute;bottom:-100px;left:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(139,92,246,.18) 0%,transparent 65%);pointer-events:none}
+.adm-l-brand{text-align:center;position:relative;z-index:1}
+.adm-l-logo{font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:14px}
+.adm-l-logo span{color:#60A5FA}
+.adm-l-tag{font-size:14px;color:#94A3B8;line-height:1.7;max-width:220px;margin:0 auto 36px}
+.adm-l-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.adm-l-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#CBD5E1;font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px}
+.adm-login-right{width:400px;background:#fff;display:flex;align-items:center;justify-content:center;padding:48px;flex-shrink:0}
+.adm-login-form{width:100%}
+.adm-login-form h2{font-size:26px;font-weight:800;color:#0F172A;margin-bottom:6px;letter-spacing:-.5px}
+.adm-login-form p{font-size:13px;color:#64748B;margin-bottom:30px;line-height:1.5}
+#adm-login-err{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none}
+.adm-inp-wrap{position:relative;margin-bottom:14px}
+.adm-inp-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none}
+.adm-inp-wrap input{width:100%;border:1.5px solid #E2E8F0;border-radius:10px;padding:13px 14px 13px 40px;font-size:14px;outline:none;font-family:inherit;color:#0F172A;background:#F8FAFC;transition:border-color .2s,box-shadow .2s}
+.adm-inp-wrap input:focus{border-color:#2563EB;box-shadow:0 0 0 3px rgba(37,99,235,.1);background:#fff}
+#adm-login-btn{width:100%;background:#2563EB;color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,transform .1s;letter-spacing:.02em;margin-top:4px}
+#adm-login-btn:hover{background:#1D4ED8;transform:translateY(-1px)}
+/* ── APP LAYOUT ── */
+#adm-app{display:flex;height:100%}
+#adm-sidebar{width:228px;background:#0A1628;display:flex;flex-direction:column;flex-shrink:0}
+#adm-sb-header{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+#adm-sb-logo{font-size:21px;font-weight:900;color:#fff;letter-spacing:-.5px}
+#adm-sb-logo span{color:#60A5FA}
+#adm-sb-sub{font-size:10px;color:#475569;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-top:2px}
+#adm-nav{flex:1;padding:10px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.adm-nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;border:none;background:none;color:#64748B;font-size:13px;font-weight:500;width:100%;text-align:left;cursor:pointer;font-family:inherit;transition:all .15s}
+.adm-nav-item .n-ic{width:22px;text-align:center;font-size:15px;flex-shrink:0}
+.adm-nav-item:hover{background:rgba(255,255,255,.07);color:#CBD5E1}
+.adm-nav-item.active{background:#1D4ED8;color:#fff;font-weight:600}
+.adm-nav-sep{height:1px;background:rgba(255,255,255,.06);margin:6px 10px}
+#adm-sb-footer{padding:12px 10px;border-top:1px solid rgba(255,255,255,.06)}
+#adm-logout{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:8px;border:none;background:none;color:#475569;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;width:100%;text-align:left}
+#adm-logout:hover{background:rgba(239,68,68,.1);color:#F87171}
+/* ── MAIN ── */
+#adm-main{flex:1;display:flex;flex-direction:column;background:#F1F5F9;min-width:0;overflow:hidden}
+#adm-header{display:flex;align-items:center;gap:12px;padding:0 24px;height:62px;background:#fff;border-bottom:1px solid #E8EDF3;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+#adm-sec-title{font-size:16px;font-weight:700;color:#0F172A;flex:1;letter-spacing:-.3px}
+#adm-header-save{display:flex;align-items:center;gap:7px;background:#2563EB;color:#fff;border:none;border-radius:9px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,transform .1s;letter-spacing:.02em}
+#adm-header-save:hover{background:#1D4ED8;transform:translateY(-1px)}
+#adm-close{width:34px;height:34px;border-radius:9px;background:#F1F5F9;border:none;color:#64748B;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+#adm-close:hover{background:#FEE2E2;color:#DC2626}
+#adm-toast{position:fixed;bottom:24px;right:28px;z-index:100000;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:none;background:#0F172A;color:#fff;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+#adm-toast.show{opacity:1;transform:translateY(0)}
+#adm-toast.err{background:#DC2626}
+#adm-toast.ok{background:#059669}
+/* ── SCROLL AREA ── */
+#adm-content{flex:1;overflow-y:scroll;overflow-x:hidden;padding:22px 20px 32px;scrollbar-width:thin;scrollbar-color:#CBD5E1 #F1F5F9}
+#adm-content::-webkit-scrollbar{width:8px}
+#adm-content::-webkit-scrollbar-track{background:#F1F5F9}
+#adm-content::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:4px}
+#adm-content::-webkit-scrollbar-thumb:hover{background:#94A3B8}
+.adm-sec{display:none}
+.adm-sec.active{display:block}
+/* ── CARDS ── */
+.adm-card{background:#fff;border:1px solid #E8EDF3;border-radius:14px;padding:20px 22px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.adm-card-ttl{font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.adm-card-ttl::before{content:'';display:block;width:3px;height:13px;background:#2563EB;border-radius:2px;flex-shrink:0}
+/* ── FIELDS ── */
+.adm-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.adm-f{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.adm-f:last-child{margin-bottom:0}
+.adm-f>label{font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.06em}
+.adm-f input,.adm-f select,.adm-f textarea{border:1.5px solid #E8EDF3;border-radius:8px;padding:9px 12px;font-size:13px;color:#0F172A;background:#F8FAFC;outline:none;font-family:inherit;transition:border-color .2s,box-shadow .2s;width:100%}
+.adm-f select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;appearance:none;-webkit-appearance:none}
+.adm-f input:focus,.adm-f select:focus,.adm-f textarea:focus{border-color:#2563EB;box-shadow:0 0 0 3px rgba(37,99,235,.08);background:#fff}
+.adm-f textarea{resize:vertical;min-height:76px}
+.adm-hint{font-size:11px;color:#94A3B8;margin-top:2px}
+/* ── ITEM CARDS ── */
+.adm-item-card{background:#F8FAFC;border:1.5px solid #E8EDF3;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.adm-item-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.adm-item-num{font-size:10px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;background:#E8EDF3;padding:3px 10px;border-radius:100px}
+.adm-del-btn{background:none;color:#94A3B8;border:1px solid #E8EDF3;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s}
+.adm-del-btn:hover{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
+.adm-add-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:#EFF6FF;color:#2563EB;border:1.5px dashed #BFDBFE;border-radius:9px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;transition:all .15s;margin-top:6px}
 .adm-add-btn:hover{background:#DBEAFE;border-color:#93C5FD}
-.adm-del-btn{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:5px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;transition:background .2s}
-.adm-del-btn:hover{background:#FEE2E2}
-/* color picker */
-.adm-color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-.adm-color-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
-.adm-color-card label{font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:8px}
+/* ── COLOR PICKERS ── */
+.adm-color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.adm-color-card{background:#fff;border:1px solid #E8EDF3;border-radius:10px;padding:13px}
+.adm-color-card label{font-size:11px;font-weight:700;color:#374151;display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
 .adm-color-row{display:flex;align-items:center;gap:8px}
-.adm-color-row input[type="color"]{width:36px;height:36px;border-radius:6px;border:1.5px solid #E2E8F0;padding:2px;cursor:pointer;background:none}
-.adm-color-row input[type="text"]{flex:1;border:1.5px solid #E2E8F0;border-radius:6px;padding:7px 8px;font-size:12px;font-family:monospace;text-transform:uppercase;outline:none}
+.adm-color-row input[type="color"]{width:38px;height:38px;border-radius:8px;border:1.5px solid #E8EDF3;padding:3px;cursor:pointer;background:none;flex-shrink:0}
+.adm-color-row input[type="text"]{flex:1;border:1.5px solid #E8EDF3;border-radius:7px;padding:8px 9px;font-size:12px;font-family:monospace;text-transform:uppercase;outline:none;color:#0F172A;min-width:0}
 .adm-color-row input[type="text"]:focus{border-color:#2563EB}
-/* accordion */
-.adm-acc{border:1px solid #E2E8F0;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#fff}
-.adm-acc-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none;transition:background .2s}
-.adm-acc-hdr:hover{background:#F8FAFC}
-.adm-acc-hdr span{font-size:13px;font-weight:700;color:#1E293B}
-.adm-acc-chevron{font-size:10px;color:#94A3B8;transition:transform .2s}
-.adm-acc.open .adm-acc-chevron{transform:rotate(180deg)}
-.adm-acc-body{display:none;padding:0 16px 16px;border-top:1px solid #F1F5F9}
-.adm-acc.open .adm-acc-body{display:block;padding-top:14px}
-/* hotspot */
+/* ── SYNC ── */
+.sync-box{border-radius:10px;padding:12px 16px;font-size:13px;margin-top:12px;display:none;line-height:1.5}
+.sync-box.ok{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;display:block}
+.sync-box.err{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;display:block}
+/* ── HOTSPOT ── */
 #adm-hotspot{position:fixed;bottom:0;left:0;width:40px;height:40px;z-index:99998;opacity:0;cursor:default}
 </style>
 </head>
 <body>
 
-<!-- ══ ADMIN OVERLAY ══ -->
+<!-- ══ ADMIN v2 ══ -->
 <div id="adm-overlay">
-  <div id="adm-shell">
+ <div id="adm-shell">
 
-    <!-- LOGIN -->
-    <div class="adm-login" id="adm-login">
-      <div class="adm-login-card">
-        <div class="adm-login-logo">ALL<span>FIT</span></div>
-        <h2>Panel Admin</h2>
-        <p>Ingresá tu contraseña</p>
-        <div class="adm-login-err" id="adm-login-err">Contraseña incorrecta</div>
-        <input type="password" id="adm-pass" placeholder="••••••••" />
-        <button class="adm-btn-primary" id="adm-login-btn">Ingresar</button>
-      </div>
+  <!-- LOGIN -->
+  <div id="adm-login">
+   <div class="adm-login-left">
+    <div class="adm-l-brand">
+     <div class="adm-l-logo">ALL<span>FIT</span></div>
+     <p class="adm-l-tag">Panel de administración de tu landing page</p>
+     <div class="adm-l-pills">
+      <span class="adm-l-pill">Hero</span><span class="adm-l-pill">Testimonios</span>
+      <span class="adm-l-pill">Colores</span><span class="adm-l-pill">Sync ☁️</span>
+     </div>
     </div>
+   </div>
+   <div class="adm-login-right">
+    <div class="adm-login-form">
+     <h2>Bienvenido</h2>
+     <p>Ingresá tu contraseña para administrar el sitio</p>
+     <div id="adm-login-err">Contraseña incorrecta. Intentá de nuevo.</div>
+     <div class="adm-inp-wrap">
+      <span class="adm-inp-icon">🔒</span>
+      <input type="password" id="adm-pass" placeholder="Contraseña" autocomplete="current-password"/>
+     </div>
+     <button id="adm-login-btn">Ingresar al panel →</button>
+    </div>
+   </div>
+  </div>
 
-    <!-- PANEL BODY -->
-    <div class="adm-body" id="adm-body" style="display:none">
-      <aside class="adm-sidebar">
-        <div class="adm-sidebar-logo">ALL<span>FIT</span></div>
-        <nav class="adm-nav">
-          <button class="adm-nav-btn active" data-tab="contenido">📝 Contenido</button>
-          <button class="adm-nav-btn" data-tab="colores">🎨 Colores</button>
-          <button class="adm-nav-btn" data-tab="testimonios">⭐ Testimonios</button>
-          <button class="adm-nav-btn" data-tab="redes">🔗 Redes</button>
-          <button class="adm-nav-btn" data-tab="formulario">📋 Formulario</button>
-          <button class="adm-nav-btn" data-tab="sync">☁️ Sincronización</button>
-        </nav>
-        <button class="adm-logout" id="adm-logout">Cerrar sesión</button>
-      </aside>
+  <!-- APP -->
+  <div id="adm-app" style="display:none">
+   <!-- SIDEBAR -->
+   <aside id="adm-sidebar">
+    <div id="adm-sb-header">
+     <div id="adm-sb-logo">ALL<span>FIT</span></div>
+     <div id="adm-sb-sub">Admin Panel</div>
+    </div>
+    <nav id="adm-nav">
+     <button class="adm-nav-item active" data-sec="hero"><span class="n-ic">🖼️</span>Hero</button>
+     <button class="adm-nav-item" data-sec="valor"><span class="n-ic">✨</span>Beneficios</button>
+     <button class="adm-nav-item" data-sec="pilares"><span class="n-ic">🏋️</span>Pilares</button>
+     <button class="adm-nav-item" data-sec="testimonios"><span class="n-ic">⭐</span>Testimonios</button>
+     <div class="adm-nav-sep"></div>
+     <button class="adm-nav-item" data-sec="colores"><span class="n-ic">🎨</span>Colores</button>
+     <button class="adm-nav-item" data-sec="redes"><span class="n-ic">🔗</span>Redes sociales</button>
+     <button class="adm-nav-item" data-sec="formulario"><span class="n-ic">📋</span>Formulario</button>
+     <button class="adm-nav-item" data-sec="cta"><span class="n-ic">🚀</span>CTA & Footer</button>
+     <div class="adm-nav-sep"></div>
+     <button class="adm-nav-item" data-sec="sync"><span class="n-ic">☁️</span>Sincronización</button>
+    </nav>
+    <div id="adm-sb-footer">
+     <button id="adm-logout">🚪 Cerrar sesión</button>
+    </div>
+   </aside>
 
-      <div class="adm-main">
-        <div class="adm-topbar">
-          <h2 id="adm-tab-title">Contenido</h2>
-          <button class="adm-close-btn" id="adm-close">✕</button>
-        </div>
-        <div class="adm-toast" id="adm-toast"></div>
+   <!-- MAIN -->
+   <div id="adm-main">
+    <header id="adm-header">
+     <span id="adm-sec-title">Hero</span>
+     <button id="adm-header-save">💾 Guardar cambios</button>
+     <button id="adm-close">✕</button>
+    </header>
+    <div id="adm-toast"></div>
 
-        <!-- CONTENIDO -->
-        <div class="adm-panel active" id="tab-contenido">
-          <div class="adm-actions"><button class="adm-save-btn" id="save-contenido">Guardar cambios</button></div>
+    <div id="adm-content">
 
-          <div class="adm-acc open">
-            <div class="adm-acc-hdr"><span>🏆 Hero</span><span class="adm-acc-chevron">▼</span></div>
-            <div class="adm-acc-body">
-              <div class="adm-field"><label>Badge (texto pequeño)</label><input id="c-hero-badge" /></div>
-              <div class="adm-field"><label>Headline (acepta &lt;em&gt;texto&lt;/em&gt; para resaltar)</label><input id="c-hero-headline" /></div>
-              <div class="adm-field"><label>Subheadline</label><textarea id="c-hero-sub"></textarea></div>
-              <div class="adm-field"><label>Texto del botón CTA</label><input id="c-hero-cta" /></div>
-              <div class="adm-field"><label>URL imagen de fondo</label><input id="c-hero-img" placeholder="https://..." /></div>
-              <div class="adm-grid">
-                <div class="adm-field"><label>Stat 1 — Número</label><input id="c-stat1-val" /></div>
-                <div class="adm-field"><label>Stat 1 — Texto</label><input id="c-stat1-lbl" /></div>
-                <div class="adm-field"><label>Stat 2 — Número</label><input id="c-stat2-val" /></div>
-                <div class="adm-field"><label>Stat 2 — Texto</label><input id="c-stat2-lbl" /></div>
-                <div class="adm-field"><label>Stat 3 — Número</label><input id="c-stat3-val" /></div>
-                <div class="adm-field"><label>Stat 3 — Texto</label><input id="c-stat3-lbl" /></div>
-              </div>
-            </div>
-          </div>
+     <!-- HERO -->
+     <div class="adm-sec active" id="sec-hero">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Texto principal</div>
+       <div class="adm-f"><label>Badge (etiqueta superior)</label><input id="c-hero-badge"/></div>
+       <div class="adm-f"><label>Titular — usá &lt;em&gt;texto&lt;/em&gt; para resaltar en azul</label><input id="c-hero-headline"/></div>
+       <div class="adm-f"><label>Subtítulo</label><textarea id="c-hero-sub"></textarea></div>
+       <div class="adm-f"><label>Texto del botón</label><input id="c-hero-cta"/></div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Imagen de fondo</div>
+       <div class="adm-f"><label>URL de la imagen (recomendado: 1920×1080px)</label><input id="c-hero-img" placeholder="https://..."/><span class="adm-hint">Dejá vacío para usar el fondo de color sólido</span></div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Estadísticas</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Número 1</label><input id="c-stat1-val"/></div>
+        <div class="adm-f"><label>Descripción 1</label><input id="c-stat1-lbl"/></div>
+        <div class="adm-f"><label>Número 2</label><input id="c-stat2-val"/></div>
+        <div class="adm-f"><label>Descripción 2</label><input id="c-stat2-lbl"/></div>
+        <div class="adm-f"><label>Número 3</label><input id="c-stat3-val"/></div>
+        <div class="adm-f"><label>Descripción 3</label><input id="c-stat3-lbl"/></div>
+       </div>
+      </div>
+     </div>
 
-          <div class="adm-acc">
-            <div class="adm-acc-hdr"><span>✅ Propuesta de Valor</span><span class="adm-acc-chevron">▼</span></div>
-            <div class="adm-acc-body">
-              <div class="adm-grid">
-                <div class="adm-field"><label>Título</label><input id="c-val-title" /></div>
-                <div class="adm-field"><label>Subtítulo</label><input id="c-val-sub" /></div>
-              </div>
-              <div id="c-val-items"></div>
-              <button id="add-val-item" class="adm-add-btn">＋ Agregar ítem</button>
-            </div>
-          </div>
+     <!-- BENEFICIOS -->
+     <div class="adm-sec" id="sec-valor">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Encabezado de sección</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Título</label><input id="c-val-title"/></div>
+        <div class="adm-f"><label>Subtítulo</label><input id="c-val-sub"/></div>
+       </div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Ítems</div>
+       <div id="c-val-items"></div>
+       <button id="add-val-item" class="adm-add-btn">＋ Agregar ítem</button>
+      </div>
+     </div>
 
-          <div class="adm-acc">
-            <div class="adm-acc-hdr"><span>3️⃣ Los 3 Pilares</span><span class="adm-acc-chevron">▼</span></div>
-            <div class="adm-acc-body">
-              <div class="adm-grid">
-                <div class="adm-field"><label>Título</label><input id="c-pil-title" /></div>
-                <div class="adm-field"><label>Subtítulo</label><input id="c-pil-sub" /></div>
-              </div>
-              <div id="c-pil-items"></div>
-              <button id="add-pil-item" class="adm-add-btn">＋ Agregar pilar</button>
-            </div>
-          </div>
+     <!-- PILARES -->
+     <div class="adm-sec" id="sec-pilares">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Encabezado de sección</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Título</label><input id="c-pil-title"/></div>
+        <div class="adm-f"><label>Subtítulo</label><input id="c-pil-sub"/></div>
+       </div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Pilares</div>
+       <div id="c-pil-items"></div>
+       <button id="add-pil-item" class="adm-add-btn">＋ Agregar pilar</button>
+      </div>
+     </div>
 
-          <div class="adm-acc">
-            <div class="adm-acc-hdr"><span>🚀 Banner CTA</span><span class="adm-acc-chevron">▼</span></div>
-            <div class="adm-acc-body">
-              <div class="adm-grid">
-                <div class="adm-field"><label>Título</label><input id="c-cta-title" /></div>
-                <div class="adm-field"><label>Subtítulo</label><input id="c-cta-sub" /></div>
-              </div>
-              <div class="adm-field"><label>Texto botón</label><input id="c-cta-btn" /></div>
-            </div>
-          </div>
+     <!-- TESTIMONIOS -->
+     <div class="adm-sec" id="sec-testimonios">
+      <div id="testi-items"></div>
+      <button id="add-testi" class="adm-add-btn">＋ Agregar testimonio</button>
+     </div>
 
-          <div class="adm-acc">
-            <div class="adm-acc-hdr"><span>🔗 Footer</span><span class="adm-acc-chevron">▼</span></div>
-            <div class="adm-acc-body">
-              <div class="adm-grid">
-                <div class="adm-field"><label>Tagline</label><input id="c-foot-tag" /></div>
-                <div class="adm-field"><label>Copyright</label><input id="c-foot-copy" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
+     <!-- COLORES -->
+     <div class="adm-sec" id="sec-colores">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Paleta de colores</div>
+       <div class="adm-color-grid" id="color-grid"></div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Vista previa</div>
+       <div id="color-preview" style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-radius:10px;margin-bottom:10px">
+        <span style="font-size:20px;font-weight:900;color:#fff" id="prev-logo">ALLFIT</span>
+        <button id="prev-btn" style="padding:9px 18px;border-radius:8px;border:none;color:#fff;font-size:13px;font-weight:700;cursor:default">EMPEZAR</button>
+       </div>
+       <div style="display:flex;gap:8px">
+        <span id="prev-blue"  style="flex:1;padding:8px;text-align:center;border-radius:8px;font-size:12px;font-weight:700;color:#fff">Entrenamiento</span>
+        <span id="prev-green" style="flex:1;padding:8px;text-align:center;border-radius:8px;font-size:12px;font-weight:700;color:#fff">Nutrición</span>
+        <span id="prev-purp"  style="flex:1;padding:8px;text-align:center;border-radius:8px;font-size:12px;font-weight:700;color:#fff">Comunidad</span>
+       </div>
+      </div>
+     </div>
 
-        <!-- COLORES -->
-        <div class="adm-panel" id="tab-colores">
-          <div class="adm-actions"><button class="adm-save-btn" id="save-colores">Guardar colores</button></div>
-          <div class="adm-color-grid" id="color-grid"></div>
-          <div class="adm-section" style="margin-top:14px">
-            <h3>Preview</h3>
-            <div id="color-preview" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-radius:10px;margin-bottom:10px">
-              <span style="font-size:18px;font-weight:900;color:#fff" id="prev-logo">ALLFIT</span>
-              <button id="prev-btn" style="padding:8px 16px;border-radius:8px;border:none;color:#fff;font-size:12px;font-weight:700;cursor:default">EMPEZAR</button>
-            </div>
-            <div style="display:flex;gap:8px">
-              <span id="prev-blue"  style="flex:1;padding:6px;text-align:center;border-radius:6px;font-size:12px;font-weight:700;color:#fff">Entrenamiento</span>
-              <span id="prev-green" style="flex:1;padding:6px;text-align:center;border-radius:6px;font-size:12px;font-weight:700;color:#fff">Nutrición</span>
-              <span id="prev-purp"  style="flex:1;padding:6px;text-align:center;border-radius:6px;font-size:12px;font-weight:700;color:#fff">Comunidad</span>
-            </div>
-          </div>
-        </div>
+     <!-- REDES -->
+     <div class="adm-sec" id="sec-redes">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Redes sociales</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Instagram</label><input id="r-ig" placeholder="https://instagram.com/..."/></div>
+        <div class="adm-f"><label>YouTube</label><input id="r-yt" placeholder="https://youtube.com/..."/></div>
+        <div class="adm-f"><label>LinkedIn</label><input id="r-li" placeholder="https://linkedin.com/..."/></div>
+        <div class="adm-f"><label>WhatsApp (ej: 5491112345678)</label><input id="r-wa"/></div>
+       </div>
+       <div class="adm-f"><label>Email de contacto</label><input id="r-email" type="email"/></div>
+      </div>
+     </div>
 
-        <!-- TESTIMONIOS -->
-        <div class="adm-panel" id="tab-testimonios">
-          <div class="adm-actions"><button class="adm-save-btn" id="save-testimonios">Guardar testimonios</button></div>
-          <div id="testi-items"></div>
-          <button id="add-testi" class="adm-add-btn" style="margin:0 20px 20px">＋ Agregar testimonio</button>
-        </div>
+     <!-- FORMULARIO -->
+     <div class="adm-sec" id="sec-formulario">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Textos del formulario</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Título</label><input id="f-title"/></div>
+        <div class="adm-f"><label>Subtítulo</label><input id="f-sub"/></div>
+        <div class="adm-f"><label>Texto del botón enviar</label><input id="f-btn"/></div>
+        <div class="adm-f"><label>Título mensaje éxito</label><input id="f-ok-title"/></div>
+       </div>
+       <div class="adm-f"><label>Mensaje éxito (texto completo)</label><textarea id="f-ok-msg"></textarea></div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Integración Formspree</div>
+       <div class="adm-f"><label>ID del formulario Formspree</label><input id="f-formspree" placeholder="xkgwlrpz"/><span class="adm-hint">Creá cuenta gratis en formspree.io → Create Form → copiá el ID. Los datos llegarán a tu email.</span></div>
+      </div>
+     </div>
 
-        <!-- REDES -->
-        <div class="adm-panel" id="tab-redes">
-          <div class="adm-actions"><button class="adm-save-btn" id="save-redes">Guardar redes</button></div>
-          <div class="adm-section">
-            <h3>Redes sociales y contacto</h3>
-            <div class="adm-grid">
-              <div class="adm-field"><label>Instagram URL</label><input id="r-ig" placeholder="https://instagram.com/..."/></div>
-              <div class="adm-field"><label>YouTube URL</label><input id="r-yt" placeholder="https://youtube.com/..."/></div>
-              <div class="adm-field"><label>LinkedIn URL</label><input id="r-li" placeholder="https://linkedin.com/..."/></div>
-              <div class="adm-field"><label>WhatsApp (número: 5493511234567)</label><input id="r-wa" /></div>
-            </div>
-            <div class="adm-field"><label>Email de contacto</label><input id="r-email" type="email" /></div>
-          </div>
-        </div>
+     <!-- CTA & FOOTER -->
+     <div class="adm-sec" id="sec-cta">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Banner CTA</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Título</label><input id="c-cta-title"/></div>
+        <div class="adm-f"><label>Subtítulo</label><input id="c-cta-sub"/></div>
+       </div>
+       <div class="adm-f"><label>Texto del botón</label><input id="c-cta-btn"/></div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Footer</div>
+       <div class="adm-row">
+        <div class="adm-f"><label>Tagline</label><input id="c-foot-tag"/></div>
+        <div class="adm-f"><label>Texto copyright</label><input id="c-foot-copy"/></div>
+       </div>
+      </div>
+     </div>
 
-        <!-- FORMULARIO -->
-        <div class="adm-panel" id="tab-formulario">
-          <div class="adm-actions"><button class="adm-save-btn" id="save-form">Guardar</button></div>
-          <div class="adm-section">
-            <h3>Textos del formulario</h3>
-            <div class="adm-grid">
-              <div class="adm-field"><label>Título</label><input id="f-title" /></div>
-              <div class="adm-field"><label>Subtítulo</label><input id="f-sub" /></div>
-              <div class="adm-field"><label>Texto botón envío</label><input id="f-btn" /></div>
-              <div class="adm-field"><label>Título éxito</label><input id="f-ok-title" /></div>
-            </div>
-            <div class="adm-field"><label>Mensaje éxito</label><textarea id="f-ok-msg"></textarea></div>
-          </div>
-          <div class="adm-section">
-            <h3>Integración Formspree</h3>
-            <div class="adm-field"><label>Formspree Form ID (ej: xkgwlrpz)</label><input id="f-formspree" placeholder="xkgwlrpz"/></div>
-            <p style="font-size:12px;color:#64748B;margin-top:6px">Creá una cuenta gratis en <strong>formspree.io</strong>, creá un form y pegá el ID acá. Los datos del formulario llegarán a tu email.</p>
-          </div>
-        </div>
+     <!-- SINCRONIZACIÓN -->
+     <div class="adm-sec" id="sec-sync">
+      <div class="adm-card">
+       <div class="adm-card-ttl">Sincronización en la nube</div>
+       <p style="font-size:13px;color:#374151;margin-bottom:14px;line-height:1.6">Usá <strong>GitHub</strong> para que los cambios se vean en <strong>todos los dispositivos</strong> que abran el link.</p>
+       <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:14px;margin-bottom:16px;font-size:12px;color:#1E40AF;line-height:2">
+        <strong>Solo la primera vez:</strong><br>
+        1. GitHub → tu foto → <strong>Settings</strong><br>
+        2. Menú izquierdo → <strong>Developer settings</strong><br>
+        3. <strong>Personal access tokens → Tokens (classic)</strong><br>
+        4. <strong>Generate new token (classic)</strong> → nombre: allfit → tildá <strong>repo</strong> → Generate<br>
+        5. Copiá el token (<code style="background:#DBEAFE;padding:1px 5px;border-radius:3px">ghp_xxx...</code>) y pegalo abajo
+       </div>
+       <div class="adm-f"><label>GitHub Personal Access Token</label><input id="sync-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxx"/></div>
+       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <button id="sync-push" style="background:#2563EB;color:#fff;border:none;border-radius:9px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s">☁️ Publicar cambios</button>
+        <button id="sync-pull" style="background:#8B5CF6;color:#fff;border:none;border-radius:9px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s">⬇️ Descargar config</button>
+       </div>
+       <div id="sync-status" class="sync-box"></div>
+      </div>
+      <div class="adm-card">
+       <div class="adm-card-ttl">Estado de conexión</div>
+       <p id="sync-info" style="font-size:13px;color:#64748B">No configurado.</p>
+      </div>
+     </div>
 
-        <!-- SINCRONIZACIÓN -->
-        <div class="adm-panel" id="tab-sync">
-          <div class="adm-section">
-            <h3>☁️ Sincronización en la nube</h3>
-            <p style="font-size:13px;color:#374151;margin-bottom:14px;line-height:1.6">Usamos <strong>GitHub</strong> (ya tenés cuenta) para guardar los cambios. Todos los que abran el link ven la última versión.</p>
-            <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-bottom:16px;font-size:12px;color:#1E40AF;line-height:1.9">
-              <strong>Configurar (solo 1 vez):</strong><br>
-              1. En GitHub: clic en tu foto → <strong>Settings</strong><br>
-              2. Bajá hasta <strong>"Developer settings"</strong> (último del menú)<br>
-              3. <strong>Personal access tokens → Tokens (classic)</strong><br>
-              4. <strong>"Generate new token (classic)"</strong><br>
-              5. Nombre: <em>allfit</em> · Tildá <strong>"repo"</strong> · clic <strong>Generate</strong><br>
-              6. Copiá el token (<code>ghp_xxx...</code>) y pegalo abajo
-            </div>
-            <div class="adm-field">
-              <label>GitHub Personal Access Token</label>
-              <input id="sync-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-              <button id="sync-push" class="adm-save-btn">☁️ Guardar y publicar cambios</button>
-              <button id="sync-pull" class="adm-save-btn" style="background:#8B5CF6">⬇️ Bajar config actual</button>
-            </div>
-            <div id="sync-status" style="font-size:12px;margin-top:10px;padding:8px 10px;border-radius:6px;display:none"></div>
-          </div>
-          <div class="adm-section">
-            <h3>Estado</h3>
-            <p id="sync-info" style="font-size:12px;color:#64748B">No configurado.</p>
-          </div>
-        </div>
+    </div><!-- /adm-content -->
+   </div><!-- /adm-main -->
+  </div><!-- /adm-app -->
 
-      </div><!-- /adm-main -->
-    </div><!-- /adm-body -->
-
-  </div><!-- /adm-shell -->
+ </div><!-- /adm-shell -->
 </div><!-- /adm-overlay -->
 
 <div id="adm-hotspot"></div>
@@ -874,11 +924,11 @@ function closeAdmin(){
 
 function showAdmLogin(){
   document.getElementById('adm-login').style.display='flex';
-  document.getElementById('adm-body').style.display='none';
+  document.getElementById('adm-app').style.display='none';
 }
 function showAdmBody(){
   document.getElementById('adm-login').style.display='none';
-  document.getElementById('adm-body').style.display='flex';
+  document.getElementById('adm-app').style.display='flex';
   populateAdmin();
 }
 
@@ -911,28 +961,25 @@ hotspot.addEventListener('click',()=>{
   if(clicks>=3){ clicks=0; openAdmin(); }
 });
 
-/* tabs */
-document.querySelectorAll('.adm-nav-btn').forEach(btn=>{
+/* section nav */
+const SEC_TITLES={hero:'Hero',valor:'Beneficios',pilares:'Pilares',testimonios:'Testimonios',colores:'Colores',redes:'Redes sociales',formulario:'Formulario',cta:'CTA & Footer',sync:'Sincronización'};
+document.querySelectorAll('.adm-nav-item').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    document.querySelectorAll('.adm-nav-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.adm-nav-item').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.adm-sec').forEach(p=>p.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-    document.getElementById('adm-tab-title').textContent=
-      {contenido:'Contenido',colores:'Colores',testimonios:'Testimonios',redes:'Redes',formulario:'Formulario',sync:'☁️ Sincronización'}[btn.dataset.tab]||'';
+    const sec=btn.dataset.sec;
+    document.getElementById('sec-'+sec).classList.add('active');
+    document.getElementById('adm-sec-title').textContent=SEC_TITLES[sec]||sec;
+    document.getElementById('adm-content').scrollTop=0;
   });
-});
-
-/* accordion */
-document.querySelectorAll('.adm-acc-hdr').forEach(hdr=>{
-  hdr.addEventListener('click',()=>hdr.closest('.adm-acc').classList.toggle('open'));
 });
 
 /* toast */
 let toastTimer;
 function admToast(msg,type='ok'){
   const t=document.getElementById('adm-toast');
-  t.textContent=msg; t.className='adm-toast show'+(type==='err'?' err':'');
+  t.textContent=msg; t.className='show '+(type==='err'?'err':'ok');
   clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
@@ -1026,7 +1073,7 @@ function updateColorPreview(){
 }
 
 /* ── save handlers ── */
-document.getElementById('save-contenido').addEventListener('click',()=>{
+function saveHero(){
   CFG.hero.badge=document.getElementById('c-hero-badge').value;
   CFG.hero.headline=document.getElementById('c-hero-headline').value;
   CFG.hero.sub=document.getElementById('c-hero-sub').value;
@@ -1034,8 +1081,12 @@ document.getElementById('save-contenido').addEventListener('click',()=>{
   CFG.hero.bgImage=document.getElementById('c-hero-img').value;
   [0,1,2].forEach(i=>{
     const v=document.getElementById(`c-stat${i+1}-val`), l=document.getElementById(`c-stat${i+1}-lbl`);
-    if(CFG.hero.stats[i]){ if(v) CFG.hero.stats[i].v=v.value; if(l) CFG.hero.stats[i].l=l.value; }
+    if(!CFG.hero.stats[i]) CFG.hero.stats[i]={};
+    if(v) CFG.hero.stats[i].v=v.value; if(l) CFG.hero.stats[i].l=l.value;
   });
+  saveCfg(CFG); renderHero(CFG.hero); admToast('✅ Hero guardado');
+}
+function saveValor(){
   CFG.value.title=document.getElementById('c-val-title').value;
   CFG.value.sub=document.getElementById('c-val-sub').value;
   CFG.value.items=Array.from(document.querySelectorAll('#c-val-items .adm-val-item')).map(d=>({
@@ -1043,27 +1094,20 @@ document.getElementById('save-contenido').addEventListener('click',()=>{
     title:d.querySelector('.vi-title').value,
     desc:d.querySelector('.vi-desc').value
   }));
+  saveCfg(CFG); renderValue(CFG.value); admToast('✅ Beneficios guardados');
+}
+function savePilares(){
   CFG.pillars.title=document.getElementById('c-pil-title').value;
   CFG.pillars.sub=document.getElementById('c-pil-sub').value;
-  CFG.pillars.items=Array.from(document.querySelectorAll('#c-pil-items .adm-pil-item')).map(d=>({
-    n:d.querySelector('.pi-num-val').textContent,
+  CFG.pillars.items=Array.from(document.querySelectorAll('#c-pil-items .adm-pil-item')).map((d,i)=>({
+    n:String(i+1).padStart(2,'0'),
     color:d.querySelector('.pi-color').value,
     title:d.querySelector('.pi-title').value,
     desc:d.querySelector('.pi-desc').value
   }));
-  CFG.cta.title=document.getElementById('c-cta-title').value;
-  CFG.cta.sub=document.getElementById('c-cta-sub').value;
-  CFG.cta.btn=document.getElementById('c-cta-btn').value;
-  CFG.footer.tagline=document.getElementById('c-foot-tag').value;
-  CFG.footer.copy=document.getElementById('c-foot-copy').value;
-  saveCfg(CFG); renderAll(); admToast('✅ Cambios guardados');
-});
-
-document.getElementById('save-colores').addEventListener('click',()=>{
-  saveCfg(CFG); applyColors(CFG.colors); admToast('✅ Colores guardados');
-});
-
-document.getElementById('save-testimonios').addEventListener('click',()=>{
+  saveCfg(CFG); renderPillars(CFG.pillars); admToast('✅ Pilares guardados');
+}
+function saveTestimonios(){
   CFG.testimonials=Array.from(document.querySelectorAll('#testi-items .adm-testi-item')).map((d,i)=>({
     name:d.querySelector('.tt-name').value,
     age:parseInt(d.querySelector('.tt-age').value)||0,
@@ -1076,18 +1120,19 @@ document.getElementById('save-testimonios').addEventListener('click',()=>{
     afterUrl:CFG.testimonials[i]?CFG.testimonials[i].afterUrl||'':''
   }));
   saveCfg(CFG); renderTestimonials(CFG.testimonials); admToast('✅ Testimonios guardados');
-});
-
-document.getElementById('save-redes').addEventListener('click',()=>{
+}
+function saveColores(){
+  saveCfg(CFG); applyColors(CFG.colors); admToast('✅ Colores guardados');
+}
+function saveRedes(){
   CFG.social.ig=document.getElementById('r-ig').value;
   CFG.social.yt=document.getElementById('r-yt').value;
   CFG.social.li=document.getElementById('r-li').value;
   CFG.social.wa=document.getElementById('r-wa').value;
   CFG.social.email=document.getElementById('r-email').value;
   saveCfg(CFG); renderSocial(CFG.social); admToast('✅ Redes guardadas');
-});
-
-document.getElementById('save-form').addEventListener('click',()=>{
+}
+function saveFormulario(){
   CFG.form.title=document.getElementById('f-title').value;
   CFG.form.sub=document.getElementById('f-sub').value;
   CFG.form.btn=document.getElementById('f-btn').value;
@@ -1095,6 +1140,21 @@ document.getElementById('save-form').addEventListener('click',()=>{
   CFG.form.okMsg=document.getElementById('f-ok-msg').value;
   CFG.form.formspree=document.getElementById('f-formspree').value;
   saveCfg(CFG); renderForm(CFG.form); admToast('✅ Formulario guardado');
+}
+function saveCta(){
+  CFG.cta.title=document.getElementById('c-cta-title').value;
+  CFG.cta.sub=document.getElementById('c-cta-sub').value;
+  CFG.cta.btn=document.getElementById('c-cta-btn').value;
+  CFG.footer.tagline=document.getElementById('c-foot-tag').value;
+  CFG.footer.copy=document.getElementById('c-foot-copy').value;
+  saveCfg(CFG); renderCta(CFG.cta); renderFooter(CFG.footer); admToast('✅ CTA & Footer guardados');
+}
+
+document.getElementById('adm-header-save').addEventListener('click',()=>{
+  const active=document.querySelector('.adm-nav-item.active');
+  if(!active) return;
+  const fn={hero:saveHero,valor:saveValor,pilares:savePilares,testimonios:saveTestimonios,colores:saveColores,redes:saveRedes,formulario:saveFormulario,cta:saveCta,sync:()=>admToast('Usá los botones de sincronización ⬆️','ok')};
+  if(fn[active.dataset.sec]) fn[active.dataset.sec]();
 });
 
 /* ── UPLOAD HELPERS (reusable after add testi) ── */
@@ -1164,30 +1224,29 @@ function setupClearBtns(){ document.querySelectorAll('[data-clear]').forEach(set
 
 /* ── ITEM BUILDER HELPERS ── */
 function valItemHtml(it,i){
-  return `<div class="adm-val-item" style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <span class="vi-num" style="font-size:11px;font-weight:700;color:#64748B">ÍTEM ${i+1}</span>
+  return `<div class="adm-val-item adm-item-card">
+    <div class="adm-item-hdr">
+      <span class="vi-num adm-item-num">ÍTEM ${i+1}</span>
       <button class="adm-del-btn del-val">✕ Eliminar</button>
     </div>
-    <div class="adm-grid">
-      <div class="adm-field"><label>Ícono (emoji)</label><input class="vi-icon" value="${esc(it.icon||'')}"/></div>
-      <div class="adm-field"><label>Título</label><input class="vi-title" value="${esc(it.title||'')}"/></div>
+    <div class="adm-row">
+      <div class="adm-f"><label>Ícono (emoji)</label><input class="vi-icon" value="${esc(it.icon||'')}"/></div>
+      <div class="adm-f"><label>Título</label><input class="vi-title" value="${esc(it.title||'')}"/></div>
     </div>
-    <div class="adm-field"><label>Descripción</label><input class="vi-desc" value="${esc(it.desc||'')}"/></div>
+    <div class="adm-f"><label>Descripción</label><input class="vi-desc" value="${esc(it.desc||'')}"/></div>
   </div>`;
 }
 
 function pilItemHtml(it,i){
   const col=it.color||'blue';
-  return `<div class="adm-pil-item" style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <span class="pi-num" style="font-size:11px;font-weight:700;color:#64748B">PILAR ${i+1}</span>
+  return `<div class="adm-pil-item adm-item-card">
+    <div class="adm-item-hdr">
+      <span class="pi-num adm-item-num">PILAR ${i+1}</span>
       <button class="adm-del-btn del-pil">✕ Eliminar</button>
     </div>
-    <input type="hidden" class="pi-num-val" value="${i+1}"/>
-    <div class="adm-grid">
-      <div class="adm-field"><label>Título</label><input class="pi-title" value="${esc(it.title||'')}"/></div>
-      <div class="adm-field"><label>Color</label>
+    <div class="adm-row">
+      <div class="adm-f"><label>Título</label><input class="pi-title" value="${esc(it.title||'')}"/></div>
+      <div class="adm-f"><label>Color</label>
         <select class="pi-color">
           <option value="blue"${col==='blue'?' selected':''}>🔵 Azul</option>
           <option value="green"${col==='green'?' selected':''}>🟢 Verde</option>
@@ -1195,25 +1254,25 @@ function pilItemHtml(it,i){
         </select>
       </div>
     </div>
-    <div class="adm-field"><label>Descripción</label><textarea class="pi-desc">${esc(it.desc||'')}</textarea></div>
+    <div class="adm-f"><label>Descripción</label><textarea class="pi-desc">${esc(it.desc||'')}</textarea></div>
   </div>`;
 }
 
 function testiItemHtml(t,i){
-  return `<div class="adm-testi-item" style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:10px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <span style="font-size:11px;font-weight:700;color:#64748B">TESTIMONIO ${i+1}</span>
+  return `<div class="adm-testi-item adm-item-card">
+    <div class="adm-item-hdr">
+      <span class="adm-item-num">TESTIMONIO ${i+1}</span>
       <button class="adm-del-btn del-testi">✕ Eliminar</button>
     </div>
-    <div class="adm-grid">
-      <div class="adm-field"><label>Nombre</label><input class="tt-name" value="${esc(t.name||'')}"/></div>
-      <div class="adm-field"><label>Edad</label><input type="number" class="tt-age" value="${esc(t.age||'')}"/></div>
+    <div class="adm-row">
+      <div class="adm-f"><label>Nombre</label><input class="tt-name" value="${esc(t.name||'')}"/></div>
+      <div class="adm-f"><label>Edad</label><input type="number" class="tt-age" value="${esc(t.age||'')}"/></div>
     </div>
-    <div class="adm-field"><label>Resultado</label><input class="tt-result" value="${esc(t.result||'')}"/></div>
-    <div class="adm-field"><label>Testimonio</label><textarea class="tt-text">${esc(t.text||'')}</textarea></div>
-    <div class="adm-grid">
-      <div class="adm-field"><label>Avatar emoji</label><input class="tt-avatar" value="${esc(t.avatar||'')}"/></div>
-      <div class="adm-field"><label>Foto perfil URL</label><input class="tt-avatarUrl" value="${esc(t.avatarUrl||'')}"/></div>
+    <div class="adm-f"><label>Resultado</label><input class="tt-result" value="${esc(t.result||'')}"/></div>
+    <div class="adm-f"><label>Testimonio</label><textarea class="tt-text">${esc(t.text||'')}</textarea></div>
+    <div class="adm-row">
+      <div class="adm-f"><label>Avatar emoji</label><input class="tt-avatar" value="${esc(t.avatar||'')}"/></div>
+      <div class="adm-f"><label>Foto perfil URL</label><input class="tt-avatarUrl" value="${esc(t.avatarUrl||'')}"/></div>
     </div>
     <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-top:8px">
       <div style="font-size:11px;font-weight:700;color:#2563EB;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em">📸 Fotos Antes / Después</div>
