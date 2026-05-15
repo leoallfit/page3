@@ -446,34 +446,29 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
         <div class="adm-panel" id="tab-sync">
           <div class="adm-section">
             <h3>☁️ Sincronización en la nube</h3>
-            <p style="font-size:13px;color:#374151;margin-bottom:16px;line-height:1.6">
-              Conectá con <strong>JSONbin.io</strong> (gratis) para que los cambios se vean en <strong>cualquier dispositivo</strong> que abra el link.
-            </p>
-            <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px;margin-bottom:16px;font-size:12px;color:#166534;line-height:1.8">
-              <strong>Cómo configurar (1 sola vez):</strong><br>
-              1. Entrá a <a href="https://jsonbin.io" target="_blank" style="color:#2563EB;font-weight:700">jsonbin.io</a> y creá una cuenta gratis<br>
-              2. Hacé clic en <strong>"Create Bin"</strong>, escribí <code style="background:#D1FAE5;padding:1px 4px;border-radius:3px">{}</code> y guardá<br>
-              3. Copiá el <strong>BIN ID</strong> (ej: <code>64f8abc123...</code>)<br>
-              4. En tu cuenta → <strong>API Keys</strong> → copiá tu <strong>Master Key</strong><br>
-              5. Pegá ambos acá abajo y hacé clic en <strong>"Guardar y subir"</strong>
+            <p style="font-size:13px;color:#374151;margin-bottom:14px;line-height:1.6">Usamos <strong>GitHub</strong> (ya tenés cuenta) para guardar los cambios. Todos los que abran el link ven la última versión.</p>
+            <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-bottom:16px;font-size:12px;color:#1E40AF;line-height:1.9">
+              <strong>Configurar (solo 1 vez):</strong><br>
+              1. En GitHub: clic en tu foto → <strong>Settings</strong><br>
+              2. Bajá hasta <strong>"Developer settings"</strong> (último del menú)<br>
+              3. <strong>Personal access tokens → Tokens (classic)</strong><br>
+              4. <strong>"Generate new token (classic)"</strong><br>
+              5. Nombre: <em>allfit</em> · Tildá <strong>"repo"</strong> · clic <strong>Generate</strong><br>
+              6. Copiá el token (<code>ghp_xxx...</code>) y pegalo abajo
             </div>
             <div class="adm-field">
-              <label>Bin ID</label>
-              <input id="sync-bin-id" placeholder="64f8a1b2c3d4e5f6a7b8c9d0"/>
-            </div>
-            <div class="adm-field">
-              <label>Master Key (API Key)</label>
-              <input id="sync-api-key" type="password" placeholder="$2a$10$..."/>
+              <label>GitHub Personal Access Token</label>
+              <input id="sync-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
             </div>
             <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-              <button id="sync-push" class="adm-save-btn">☁️ Guardar y subir config</button>
-              <button id="sync-pull" class="adm-save-btn" style="background:#8B5CF6">⬇️ Descargar config</button>
+              <button id="sync-push" class="adm-save-btn">☁️ Guardar y publicar cambios</button>
+              <button id="sync-pull" class="adm-save-btn" style="background:#8B5CF6">⬇️ Bajar config actual</button>
             </div>
             <div id="sync-status" style="font-size:12px;margin-top:10px;padding:8px 10px;border-radius:6px;display:none"></div>
           </div>
           <div class="adm-section">
-            <h3>Estado actual</h3>
-            <p id="sync-info" style="font-size:12px;color:#64748B">No configurado. Seguí los pasos de arriba.</p>
+            <h3>Estado</h3>
+            <p id="sync-info" style="font-size:12px;color:#64748B">No configurado.</p>
           </div>
         </div>
 
@@ -661,16 +656,6 @@ const DEFAULT = {
 function loadCfg(){ try{ return Object.assign({},DEFAULT,JSON.parse(localStorage.getItem('allfit_cfg')||'{}')); }catch(e){ return DEFAULT; } }
 function saveCfg(cfg){
   localStorage.setItem('allfit_cfg',JSON.stringify(cfg));
-  // auto-sync to cloud if credentials saved
-  const binId=localStorage.getItem('allfit_sync_bin');
-  const apiKey=localStorage.getItem('allfit_sync_key');
-  if(binId&&apiKey){
-    fetch(`https://api.jsonbin.io/v3/b/${binId}`,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':apiKey},
-      body:JSON.stringify(cfg)
-    }).catch(()=>{});
-  }
 }
 let CFG = loadCfg();
 
@@ -1024,11 +1009,10 @@ function populateAdmin(){
   document.getElementById('f-ok-msg').value=c.form.okMsg||'';
   document.getElementById('f-formspree').value=c.form.formspree||'';
   // sync
-  const savedBin=localStorage.getItem('allfit_sync_bin')||'';
-  document.getElementById('sync-bin-id').value=savedBin;
-  document.getElementById('sync-api-key').value=localStorage.getItem('allfit_sync_key')||'';
-  document.getElementById('sync-info').textContent=savedBin
-    ?`✅ Conectado al bin: ${savedBin}`
+  const savedToken=localStorage.getItem('allfit_gh_token')||'';
+  document.getElementById('sync-gh-token').value=savedToken;
+  document.getElementById('sync-info').textContent=savedToken
+    ?'✅ Conectado a GitHub · leoallfit/page3'
     :'No configurado. Seguí los pasos de arriba.';
 }
 
@@ -1309,73 +1293,72 @@ document.getElementById('testi-items').addEventListener('click',e=>{
   }
 });
 
-/* ── SYNC TAB HANDLERS ── */
-function syncSetStatus(msg, ok){
+/* ── SYNC TAB HANDLERS (GitHub API) ── */
+const GH_REPO='leoallfit/page3';
+const GH_FILE='config.json';
+const GH_RAW=`https://raw.githubusercontent.com/${GH_REPO}/main/${GH_FILE}`;
+const GH_API=`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
+
+function syncSetStatus(msg,ok){
   const el=document.getElementById('sync-status');
-  if(!el) return;
+  if(!el)return;
   el.style.display='block';
-  el.style.background=ok?'#F0FDF4':'#FEF2F2';
-  el.style.color=ok?'#166534':'#DC2626';
-  el.style.border=`1px solid ${ok?'#BBF7D0':'#FECACA'}`;
+  el.style.cssText+=`;background:${ok?'#F0FDF4':'#FEF2F2'};color:${ok?'#166534':'#DC2626'};border:1px solid ${ok?'#BBF7D0':'#FECACA'}`;
   el.textContent=msg;
 }
+
+async function ghGetFileSha(token){
+  const r=await fetch(GH_API,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+  if(!r.ok) return null;
+  const j=await r.json();
+  return j.sha||null;
+}
+
 document.getElementById('sync-push').addEventListener('click',async()=>{
-  const binId=document.getElementById('sync-bin-id').value.trim();
-  const apiKey=document.getElementById('sync-api-key').value.trim();
-  if(!binId||!apiKey){ syncSetStatus('⚠️ Ingresá el Bin ID y la Master Key',false); return; }
-  localStorage.setItem('allfit_sync_bin',binId);
-  localStorage.setItem('allfit_sync_key',apiKey);
-  syncSetStatus('Subiendo configuración...', true);
+  const token=document.getElementById('sync-gh-token').value.trim();
+  if(!token){syncSetStatus('⚠️ Pegá tu GitHub Token primero',false);return;}
+  localStorage.setItem('allfit_gh_token',token);
+  syncSetStatus('Subiendo a GitHub...',true);
   try{
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':apiKey},
-      body:JSON.stringify(CFG)
-    });
-    if(!r.ok) throw new Error('Error '+r.status);
-    syncSetStatus('✅ Config subida. Ahora todos los que abran el link verán los cambios.',true);
-    document.getElementById('sync-info').textContent=`✅ Conectado al bin: ${binId}`;
-    admToast('☁️ Config sincronizada con la nube');
+    const sha=await ghGetFileSha(token);
+    const body={message:'Actualizar config desde admin panel',content:btoa(unescape(encodeURIComponent(JSON.stringify(CFG,null,2))))};
+    if(sha) body.sha=sha;
+    const r=await fetch(GH_API,{method:'PUT',headers:{'Authorization':`token ${token}`,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.message||r.status);}
+    syncSetStatus('✅ Cambios publicados. En 1-2 min se ven en todos los dispositivos.',true);
+    document.getElementById('sync-info').textContent='✅ Conectado a GitHub · leoallfit/page3';
+    admToast('☁️ Config publicada en GitHub');
+    saveCfg(CFG);
   }catch(e){
-    syncSetStatus('❌ Error: verificá que el Bin ID y la Master Key sean correctos.',false);
-    admToast('Error al sincronizar','err');
-  }
-});
-document.getElementById('sync-pull').addEventListener('click',async()=>{
-  const binId=document.getElementById('sync-bin-id').value.trim();
-  const apiKey=document.getElementById('sync-api-key').value.trim();
-  if(!binId){ syncSetStatus('⚠️ Ingresá el Bin ID',false); return; }
-  syncSetStatus('Descargando configuración...', true);
-  try{
-    const headers={'Content-Type':'application/json'};
-    if(apiKey) headers['X-Master-Key']=apiKey;
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers});
-    if(!r.ok) throw new Error();
-    const j=await r.json();
-    CFG=deepMerge(DEFAULT,j.record||{});
-    saveCfg(CFG); renderAll(); populateAdmin();
-    syncSetStatus('✅ Config descargada y aplicada.',true);
-    admToast('✅ Config cargada desde la nube');
-  }catch(e){
-    syncSetStatus('❌ Error al descargar. Verificá el Bin ID.',false);
+    syncSetStatus(`❌ Error: ${e.message}`,false);
+    admToast('Error al publicar','err');
   }
 });
 
-/* ── BOOT (carga config desde la nube si está configurado) ── */
-(async()=>{
-  const binId=localStorage.getItem('allfit_sync_bin');
-  if(binId){
-    try{
-      const headers={};
-      const apiKey=localStorage.getItem('allfit_sync_key');
-      if(apiKey) headers['X-Master-Key']=apiKey;
-      const r=await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers});
-      if(r.ok){
-        const j=await r.json();
-        if(j.record) CFG=deepMerge(DEFAULT,j.record);
-      }
-    }catch(e){}
+document.getElementById('sync-pull').addEventListener('click',async()=>{
+  syncSetStatus('Descargando config desde GitHub...',true);
+  try{
+    const r=await fetch(GH_RAW+'?t='+Date.now());
+    if(!r.ok) throw new Error('No se encontró config.json');
+    const j=await r.json();
+    CFG=deepMerge(DEFAULT,j);
+    saveCfg(CFG);renderAll();populateAdmin();
+    syncSetStatus('✅ Config descargada y aplicada.',true);
+    admToast('✅ Config cargada desde GitHub');
+  }catch(e){
+    syncSetStatus(`❌ ${e.message}`,false);
   }
+});
+
+/* ── BOOT: carga config desde GitHub raw si hay token guardado ── */
+(async()=>{
+  try{
+    const r=await fetch(GH_RAW+'?t='+Date.now());
+    if(r.ok){
+      const j=await r.json();
+      if(j&&Object.keys(j).length>0) CFG=deepMerge(DEFAULT,j);
+    }
+  }catch(e){}
   renderAll();
 })();
 </script>
