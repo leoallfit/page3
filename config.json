@@ -1,39 +1,141 @@
 {
-  "colors": { "primary": "#1F2937", "accent": "#2563EB", "green": "#10B981", "purple": "#8B5CF6", "bgLight": "#F3F4F6", "bgDark": "#0F172A", "textSec": "#6B7280" },
+  "colors": {
+    "primary": "#1F2937",
+    "accent": "#2563EB",
+    "green": "#10B981",
+    "purple": "#8B5CF6",
+    "bgLight": "#F3F4F6",
+    "bgDark": "#0F172A",
+    "textSec": "#6B7280"
+  },
   "hero": {
     "badge": "Programa de entrenamiento online",
     "headline": "Aumentá tu masa<br>muscular en <em>90 días</em>",
     "sub": "Entrenamiento online + Plan alimenticio + Comunidad de apoyo. Resultados garantizados o te devolvemos el 100%.",
     "cta": "COMPLETÁ EL FORMULARIO",
     "bgImage": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80",
-    "stats": [{"v":"5,000+","l":"Hombres transformados"},{"v":"90 días","l":"Para ver resultados reales"},{"v":"100%","l":"Garantía de resultados"}]
+    "stats": [
+      {
+        "v": "5,000+",
+        "l": "Hombres transformados"
+      },
+      {
+        "v": "90 días",
+        "l": "Para ver resultados reales"
+      },
+      {
+        "v": "100%",
+        "l": "Garantía de resultados"
+      }
+    ]
   },
   "value": {
     "title": "¿Por qué elegir ALLFIT?",
     "sub": "No somos otro programa genérico. Diseñamos cada aspecto para que logres resultados.",
     "items": [
-      {"icon":"🎯","title":"Programa personalizado basado en tu nivel","desc":"Evaluamos tu punto de partida y creamos un plan 100% adaptado a vos."},
-      {"icon":"📈","title":"Seguimiento semanal de progreso","desc":"Chequeamos tus métricas cada semana y ajustamos en tiempo real."},
-      {"icon":"👥","title":"Comunidad activa de 5,000+ hombres","desc":"Rodeate de personas con los mismos objetivos. La motivación es clave."},
-      {"icon":"🛡️","title":"Garantía: resultados o devolución 100%","desc":"Si seguís el programa y no ves resultados, te devolvemos cada peso."}
+      {
+        "icon": "🎯",
+        "title": "Programa personalizado basado en tu nivel",
+        "desc": "Evaluamos tu punto de partida y creamos un plan 100% adaptado a vos."
+      },
+      {
+        "icon": "📈",
+        "title": "Seguimiento semanal de progreso",
+        "desc": "Chequeamos tus métricas cada semana y ajustamos en tiempo real."
+      },
+      {
+        "icon": "👥",
+        "title": "Comunidad activa de 5,000+ hombres",
+        "desc": "Rodeate de personas con los mismos objetivos. La motivación es clave."
+      },
+      {
+        "icon": "🛡️",
+        "title": "Garantía: resultados o devolución 100%",
+        "desc": "Si seguís el programa y no ves resultados, te devolvemos cada peso."
+      }
     ]
   },
   "pillars": {
     "title": "Los 3 pilares de ALLFIT",
     "sub": "Todo lo que necesitás en un solo lugar.",
     "items": [
-      {"n":"01","color":"blue","title":"Entrenamientos Online","desc":"Videotutoriales HD con ejercicios diseñados para hipertrofia. Rutinas de 45 minutos, 4-5 días por semana. Progresión programada."},
-      {"n":"02","color":"green","title":"Planes Nutricionales","desc":"Dietas personalizadas según tu peso, altura y objetivos. Recetas prácticas. Macros calculados automáticamente."},
-      {"n":"03","color":"purple","title":"Comunidad Privada","desc":"Grupo exclusivo en Telegram y Discord. Comparte progreso, resuelve dudas. Soporte 24/7 con coaches certificados."}
+      {
+        "n": "01",
+        "color": "blue",
+        "title": "Entrenamientos Online",
+        "desc": "Videotutoriales HD con ejercicios diseñados para hipertrofia. Rutinas de 45 minutos, 4-5 días por semana. Progresión programada."
+      },
+      {
+        "n": "02",
+        "color": "green",
+        "title": "Planes Nutricionales",
+        "desc": "Dietas personalizadas según tu peso, altura y objetivos. Recetas prácticas. Macros calculados automáticamente."
+      },
+      {
+        "n": "03",
+        "color": "purple",
+        "title": "Comunidad Privada",
+        "desc": "Grupo exclusivo en Telegram y Discord. Comparte progreso, resuelve dudas. Soporte 24/7 con coaches certificados."
+      }
     ]
   },
   "testimonials": [
-    {"avatar":"💪","avatarUrl":"","name":"Martín R.","age":31,"result":"+8 kg de músculo en 90 días","text":"En 3 meses gané 8 kg de músculo limpio. El programa es muy estructurado y el seguimiento semanal hace toda la diferencia.","rating":5,"beforeUrl":"","afterUrl":""},
-    {"avatar":"🏋️","avatarUrl":"","name":"Diego F.","age":28,"result":"-5% grasa · +4 kg músculo","text":"Intenté mil programas antes y nunca vi resultados. Con ALLFIT el plan nutricional cambió todo.","rating":5,"beforeUrl":"","afterUrl":""},
-    {"avatar":"🔥","avatarUrl":"","name":"Lucas M.","age":35,"result":"+6 kg de masa en 3 meses","text":"La comunidad es increíble. Siempre hay alguien para responder dudas y la motivación grupal es clave.","rating":5,"beforeUrl":"","afterUrl":""}
+    {
+      "avatar": "💪",
+      "avatarUrl": "",
+      "name": "Martín R.",
+      "age": 31,
+      "result": "+8 kg de músculo en 90 días",
+      "text": "En 3 meses gané 8 kg de músculo limpio. El programa es muy estructurado y el seguimiento semanal hace toda la diferencia.",
+      "rating": 5,
+      "beforeUrl": "",
+      "afterUrl": ""
+    },
+    {
+      "avatar": "🏋️",
+      "avatarUrl": "",
+      "name": "Diego F.",
+      "age": 28,
+      "result": "-5% grasa · +4 kg músculo",
+      "text": "Intenté mil programas antes y nunca vi resultados. Con ALLFIT el plan nutricional cambió todo.",
+      "rating": 5,
+      "beforeUrl": "",
+      "afterUrl": ""
+    },
+    {
+      "avatar": "🔥",
+      "avatarUrl": "",
+      "name": "Lucas M.",
+      "age": 35,
+      "result": "+6 kg de masa en 3 meses",
+      "text": "La comunidad es increíble. Siempre hay alguien para responder dudas y la motivación grupal es clave.",
+      "rating": 5,
+      "beforeUrl": "",
+      "afterUrl": ""
+    }
   ],
-  "cta": { "title": "¿Listo para transformarte?", "sub": "Más de 5,000 hombres ya dieron el primer paso. Es tu turno.", "btn": "COMPLETÁ EL FORMULARIO AHORA" },
-  "social": { "ig": "#", "yt": "#", "li": "#", "wa": "", "email": "allfit.asesorias@gmail.com" },
-  "footer": { "tagline": "Entrenamiento online para hombres que quieren aumentar su masa muscular.", "copy": "© 2026 ALLFIT. Todos los derechos reservados." },
-  "form": { "title": "Comenzá tu transformación hoy", "sub": "Completá el formulario y recibirás tu plan personalizado en menos de 24 horas.", "btn": "QUIERO MI PLAN PERSONALIZADO", "okTitle": "¡Gracias por registrarte!", "okMsg": "En menos de 24 horas recibirás tu plan personalizado. ¡Bienvenido a ALLFIT! 💪", "formspree": "" }
+  "cta": {
+    "title": "¿Listo para transformarte?",
+    "sub": "Más de 5,000 hombres ya dieron el primer paso. Es tu turno.",
+    "btn": "COMPLETÁ EL FORMULARIO AHORA"
+  },
+  "social": {
+    "ig": "#",
+    "yt": "#",
+    "li": "#",
+    "wa": "",
+    "email": "allfit.asesorias@gmail.com"
+  },
+  "footer": {
+    "tagline": "Entrenamiento online para hombres que quieren aumentar su masa muscular.",
+    "copy": "© 2026 ALLFIT. Todos los derechos reservados."
+  },
+  "form": {
+    "title": "Comenzá tu transformación hoy",
+    "sub": "Completá el formulario y recibirás tu plan personalizado en menos de 24 horas.",
+    "btn": "QUIERO MI PLAN PERSONALIZADO",
+    "okTitle": "¡Gracias por registrarte!",
+    "okMsg": "En menos de 24 horas recibirás tu plan personalizado. ¡Bienvenido a ALLFIT! 💪",
+    "formspree": ""
+  }
 }
