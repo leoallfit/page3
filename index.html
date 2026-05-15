@@ -219,8 +219,8 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
 .adm-logout{padding:14px 16px;border:none;background:none;color:#475569;font-size:12px;cursor:pointer;border-top:1px solid #1E293B;font-family:inherit;transition:color .2s;flex-shrink:0}
 .adm-logout:hover{color:#EF4444}
 /* main */
-.adm-main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
-.adm-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:#fff;border-bottom:1px solid #E2E8F0;flex-shrink:0}
+.adm-main{flex:1;position:relative;min-width:0;overflow:hidden}
+.adm-topbar{position:absolute;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#fff;border-bottom:1px solid #E2E8F0;z-index:2}
 .adm-topbar h2{font-size:15px;font-weight:700;color:#1E293B}
 .adm-close-btn{width:30px;height:30px;border-radius:50%;background:#F1F5F9;border:none;color:#64748B;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .adm-close-btn:hover{background:#FEE2E2;color:#DC2626}
@@ -228,7 +228,7 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
 .adm-toast.show{opacity:1;transform:translateY(0)}
 .adm-toast.err{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
 /* panels */
-.adm-panels{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.adm-panels{position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .adm-panel{display:none;padding:20px}
 .adm-panel.active{display:block}
 /* form elements */
