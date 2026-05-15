@@ -244,6 +244,10 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
 .adm-save-btn{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
 .adm-save-btn:hover{background:#1D4ED8}
 .adm-actions{display:flex;gap:10px;margin-bottom:16px;align-items:center}
+.adm-add-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:#EFF6FF;color:#2563EB;border:1.5px dashed #BFDBFE;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;transition:background .2s,border-color .2s;margin-top:4px}
+.adm-add-btn:hover{background:#DBEAFE;border-color:#93C5FD}
+.adm-del-btn{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:5px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700;transition:background .2s}
+.adm-del-btn:hover{background:#FEE2E2}
 /* color picker */
 .adm-color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
 .adm-color-card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
@@ -335,6 +339,7 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
                 <div class="adm-field"><label>Subtítulo</label><input id="c-val-sub" /></div>
               </div>
               <div id="c-val-items"></div>
+              <button id="add-val-item" class="adm-add-btn">＋ Agregar ítem</button>
             </div>
           </div>
 
@@ -346,6 +351,7 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
                 <div class="adm-field"><label>Subtítulo</label><input id="c-pil-sub" /></div>
               </div>
               <div id="c-pil-items"></div>
+              <button id="add-pil-item" class="adm-add-btn">＋ Agregar pilar</button>
             </div>
           </div>
 
@@ -393,6 +399,7 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
         <div class="adm-panel" id="tab-testimonios">
           <div class="adm-actions"><button class="adm-save-btn" id="save-testimonios">Guardar testimonios</button></div>
           <div id="testi-items"></div>
+          <button id="add-testi" class="adm-add-btn" style="margin:0 20px 20px">＋ Agregar testimonio</button>
         </div>
 
         <!-- REDES -->
@@ -908,24 +915,11 @@ function populateAdmin(){
   // value items
   document.getElementById('c-val-title').value=c.value.title||'';
   document.getElementById('c-val-sub').value=c.value.sub||'';
-  document.getElementById('c-val-items').innerHTML=(c.value.items||[]).map((it,i)=>`
-    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px">
-      <div style="font-size:11px;font-weight:700;color:#64748B;margin-bottom:8px">ÍTEM ${i+1}</div>
-      <div class="adm-grid">
-        <div class="adm-field"><label>Ícono</label><input data-vi="${i}" data-vf="icon" value="${esc(it.icon||'')}"/></div>
-        <div class="adm-field"><label>Título</label><input data-vi="${i}" data-vf="title" value="${esc(it.title||'')}"/></div>
-      </div>
-      <div class="adm-field"><label>Descripción</label><input data-vi="${i}" data-vf="desc" value="${esc(it.desc||'')}"/></div>
-    </div>`).join('');
+  document.getElementById('c-val-items').innerHTML=(c.value.items||[]).map((it,i)=>valItemHtml(it,i)).join('');
   // pillars
   document.getElementById('c-pil-title').value=c.pillars.title||'';
   document.getElementById('c-pil-sub').value=c.pillars.sub||'';
-  document.getElementById('c-pil-items').innerHTML=(c.pillars.items||[]).map((it,i)=>`
-    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px">
-      <div style="font-size:11px;font-weight:700;color:#64748B;margin-bottom:8px">PILAR ${i+1}</div>
-      <div class="adm-field"><label>Título</label><input data-pi="${i}" data-pf="title" value="${esc(it.title||'')}"/></div>
-      <div class="adm-field"><label>Descripción</label><textarea data-pi="${i}" data-pf="desc">${esc(it.desc||'')}</textarea></div>
-    </div>`).join('');
+  document.getElementById('c-pil-items').innerHTML=(c.pillars.items||[]).map((it,i)=>pilItemHtml(it,i)).join('');
   // cta
   document.getElementById('c-cta-title').value=c.cta.title||'';
   document.getElementById('c-cta-sub').value=c.cta.sub||'';
@@ -961,106 +955,9 @@ function populateAdmin(){
     });
   });
   // testimonials
-  document.getElementById('testi-items').innerHTML=(c.testimonials||[]).map((t,i)=>`
-    <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:10px">
-      <div style="font-size:11px;font-weight:700;color:#64748B;margin-bottom:10px">TESTIMONIO ${i+1}</div>
-      <div class="adm-grid">
-        <div class="adm-field"><label>Nombre</label><input data-ti="${i}" data-tf="name" value="${esc(t.name||'')}"/></div>
-        <div class="adm-field"><label>Edad</label><input type="number" data-ti="${i}" data-tf="age" value="${esc(t.age||'')}"/></div>
-      </div>
-      <div class="adm-field"><label>Resultado</label><input data-ti="${i}" data-tf="result" value="${esc(t.result||'')}"/></div>
-      <div class="adm-field"><label>Testimonio</label><textarea data-ti="${i}" data-tf="text">${esc(t.text||'')}</textarea></div>
-      <div class="adm-grid">
-        <div class="adm-field"><label>Avatar emoji</label><input data-ti="${i}" data-tf="avatar" value="${esc(t.avatar||'')}"/></div>
-        <div class="adm-field"><label>Foto perfil URL</label><input data-ti="${i}" data-tf="avatarUrl" value="${esc(t.avatarUrl||'')}"/></div>
-      </div>
-      <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-top:8px">
-        <div style="font-size:11px;font-weight:700;color:#2563EB;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em">📸 Fotos Antes / Después</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#DC2626;text-transform:uppercase;margin-bottom:6px">ANTES</div>
-            <div id="prev-before-${i}" data-upload-target="before-${i}" style="width:100%;aspect-ratio:3/4;background:#F8FAFC;border:2px dashed #CBD5E1;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;margin-bottom:6px" title="Clic para subir foto">
-              ${t.beforeUrl?`<img src="${t.beforeUrl}" style="width:100%;height:100%;object-fit:cover"/>`:`<div style="text-align:center;color:#94A3B8;font-size:12px;line-height:1.6;pointer-events:none">📷<br><strong>Clic para<br>subir foto</strong></div>`}
-            </div>
-            <input type="file" id="file-before-${i}" accept="image/*" style="display:none" data-fi="${i}" data-ftype="before">
-            ${t.beforeUrl?`<button data-clear="before-${i}" style="width:100%;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600">✕ Quitar foto</button>`:''}
-          </div>
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:6px">DESPUÉS</div>
-            <div id="prev-after-${i}" data-upload-target="after-${i}" style="width:100%;aspect-ratio:3/4;background:#F8FAFC;border:2px dashed #CBD5E1;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;margin-bottom:6px" title="Clic para subir foto">
-              ${t.afterUrl?`<img src="${t.afterUrl}" style="width:100%;height:100%;object-fit:cover"/>`:`<div style="text-align:center;color:#94A3B8;font-size:12px;line-height:1.6;pointer-events:none">📷<br><strong>Clic para<br>subir foto</strong></div>`}
-            </div>
-            <input type="file" id="file-after-${i}" accept="image/*" style="display:none" data-fi="${i}" data-ftype="after">
-            ${t.afterUrl?`<button data-clear="after-${i}" style="width:100%;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600">✕ Quitar foto</button>`:''}
-          </div>
-        </div>
-        <p style="font-size:11px;color:#64748B;margin-top:8px">💡 Clic en el cuadro para elegir una imagen. Se guarda automáticamente comprimida.</p>
-      </div>
-    </div>`).join('');
-
-  // ── upload area: click → trigger file input ──
-  document.querySelectorAll('[data-upload-target]').forEach(div=>{
-    div.addEventListener('mouseenter',()=>div.style.borderColor='#93C5FD');
-    div.addEventListener('mouseleave',()=>div.style.borderColor='#CBD5E1');
-    div.addEventListener('click',()=>{
-      const [type,idx]=div.dataset.uploadTarget.split('-');
-      document.getElementById(`file-${type}-${idx}`).click();
-    });
-  });
-
-  // ── file inputs: compress & store base64 ──
-  document.querySelectorAll('[data-fi]').forEach(input=>{
-    input.addEventListener('change',e=>{
-      const file=e.target.files[0]; if(!file) return;
-      if(file.size>5*1024*1024){ admToast('⚠️ Imagen muy grande (máx 5MB)','err'); return; }
-      const i=parseInt(input.dataset.fi), ftype=input.dataset.ftype;
-      const img=new Image(), reader=new FileReader();
-      reader.onload=ev=>{
-        img.onload=()=>{
-          const MAX=800;
-          let w=img.width, h=img.height;
-          if(w>MAX||h>MAX){ if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;} }
-          const canvas=document.createElement('canvas');
-          canvas.width=w; canvas.height=h;
-          canvas.getContext('2d').drawImage(img,0,0,w,h);
-          const dataUrl=canvas.toDataURL('image/jpeg',0.82);
-          // store in CFG
-          if(ftype==='before') CFG.testimonials[i].beforeUrl=dataUrl;
-          else CFG.testimonials[i].afterUrl=dataUrl;
-          // update preview
-          const prev=document.getElementById(`prev-${ftype}-${i}`);
-          prev.innerHTML=`<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover"/>`;
-          // show/update clear button
-          const clearKey=`${ftype}-${i}`;
-          let clearBtn=document.querySelector(`[data-clear="${clearKey}"]`);
-          if(!clearBtn){
-            clearBtn=document.createElement('button');
-            clearBtn.dataset.clear=clearKey;
-            clearBtn.style.cssText='width:100%;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600;margin-top:0';
-            clearBtn.textContent='✕ Quitar foto';
-            prev.after(clearBtn);
-            setupClearBtn(clearBtn);
-          }
-          admToast('📸 Foto cargada — guardá para aplicar');
-        };
-        img.src=ev.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  });
-
-  function setupClearBtn(btn){
-    btn.addEventListener('click',()=>{
-      const [ftype,idx]=btn.dataset.clear.split('-');
-      const i=parseInt(idx);
-      if(ftype==='before') CFG.testimonials[i].beforeUrl='';
-      else CFG.testimonials[i].afterUrl='';
-      const prev=document.getElementById(`prev-${ftype}-${i}`);
-      prev.innerHTML=`<div style="text-align:center;color:#94A3B8;font-size:12px;line-height:1.6;pointer-events:none">📷<br><strong>Clic para<br>subir foto</strong></div>`;
-      btn.remove();
-    });
-  }
-  document.querySelectorAll('[data-clear]').forEach(setupClearBtn);
+  document.getElementById('testi-items').innerHTML=(c.testimonials||[]).map((t,i)=>testiItemHtml(t,i)).join('');
+  setupUploadListeners();
+  setupClearBtns();
   // redes
   document.getElementById('r-ig').value=c.social.ig||'';
   document.getElementById('r-yt').value=c.social.yt||'';
@@ -1098,16 +995,19 @@ document.getElementById('save-contenido').addEventListener('click',()=>{
   });
   CFG.value.title=document.getElementById('c-val-title').value;
   CFG.value.sub=document.getElementById('c-val-sub').value;
-  document.querySelectorAll('[data-vi]').forEach(el=>{
-    const i=parseInt(el.dataset.vi), f=el.dataset.vf;
-    if(CFG.value.items[i]) CFG.value.items[i][f]=el.value;
-  });
+  CFG.value.items=Array.from(document.querySelectorAll('#c-val-items .adm-val-item')).map(d=>({
+    icon:d.querySelector('.vi-icon').value,
+    title:d.querySelector('.vi-title').value,
+    desc:d.querySelector('.vi-desc').value
+  }));
   CFG.pillars.title=document.getElementById('c-pil-title').value;
   CFG.pillars.sub=document.getElementById('c-pil-sub').value;
-  document.querySelectorAll('[data-pi]').forEach(el=>{
-    const i=parseInt(el.dataset.pi), f=el.dataset.pf;
-    if(CFG.pillars.items[i]) CFG.pillars.items[i][f]=el.value;
-  });
+  CFG.pillars.items=Array.from(document.querySelectorAll('#c-pil-items .adm-pil-item')).map(d=>({
+    n:d.querySelector('.pi-num-val').textContent,
+    color:d.querySelector('.pi-color').value,
+    title:d.querySelector('.pi-title').value,
+    desc:d.querySelector('.pi-desc').value
+  }));
   CFG.cta.title=document.getElementById('c-cta-title').value;
   CFG.cta.sub=document.getElementById('c-cta-sub').value;
   CFG.cta.btn=document.getElementById('c-cta-btn').value;
@@ -1121,12 +1021,17 @@ document.getElementById('save-colores').addEventListener('click',()=>{
 });
 
 document.getElementById('save-testimonios').addEventListener('click',()=>{
-  document.querySelectorAll('[data-ti]').forEach(el=>{
-    const i=parseInt(el.dataset.ti), f=el.dataset.tf;
-    if(CFG.testimonials[i]){
-      CFG.testimonials[i][f]=f==='age'?parseInt(el.value)||el.value:el.value;
-    }
-  });
+  CFG.testimonials=Array.from(document.querySelectorAll('#testi-items .adm-testi-item')).map((d,i)=>({
+    name:d.querySelector('.tt-name').value,
+    age:parseInt(d.querySelector('.tt-age').value)||0,
+    result:d.querySelector('.tt-result').value,
+    text:d.querySelector('.tt-text').value,
+    avatar:d.querySelector('.tt-avatar').value,
+    avatarUrl:d.querySelector('.tt-avatarUrl').value,
+    rating:5,
+    beforeUrl:CFG.testimonials[i]?CFG.testimonials[i].beforeUrl||'':'',
+    afterUrl:CFG.testimonials[i]?CFG.testimonials[i].afterUrl||'':''
+  }));
   saveCfg(CFG); renderTestimonials(CFG.testimonials); admToast('✅ Testimonios guardados');
 });
 
@@ -1147,6 +1052,202 @@ document.getElementById('save-form').addEventListener('click',()=>{
   CFG.form.okMsg=document.getElementById('f-ok-msg').value;
   CFG.form.formspree=document.getElementById('f-formspree').value;
   saveCfg(CFG); renderForm(CFG.form); admToast('✅ Formulario guardado');
+});
+
+/* ── UPLOAD HELPERS (reusable after add testi) ── */
+function setupUploadListeners(){
+  document.querySelectorAll('[data-upload-target]').forEach(div=>{
+    if(div._uploadBound) return; div._uploadBound=true;
+    div.addEventListener('mouseenter',()=>div.style.borderColor='#93C5FD');
+    div.addEventListener('mouseleave',()=>div.style.borderColor='#CBD5E1');
+    div.addEventListener('click',()=>{
+      const [type,idx]=div.dataset.uploadTarget.split('-');
+      document.getElementById(`file-${type}-${idx}`).click();
+    });
+  });
+  document.querySelectorAll('[data-fi]').forEach(input=>{
+    if(input._uploadBound) return; input._uploadBound=true;
+    input.addEventListener('change',e=>{
+      const file=e.target.files[0]; if(!file) return;
+      if(file.size>5*1024*1024){ admToast('⚠️ Imagen muy grande (máx 5MB)','err'); return; }
+      const i=parseInt(input.dataset.fi), ftype=input.dataset.ftype;
+      const imgEl=new Image(), reader=new FileReader();
+      reader.onload=ev=>{
+        imgEl.onload=()=>{
+          const MAX=800; let w=imgEl.width, h=imgEl.height;
+          if(w>MAX||h>MAX){ if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;} }
+          const canvas=document.createElement('canvas');
+          canvas.width=w; canvas.height=h;
+          canvas.getContext('2d').drawImage(imgEl,0,0,w,h);
+          const dataUrl=canvas.toDataURL('image/jpeg',0.82);
+          if(!CFG.testimonials[i]) CFG.testimonials[i]={};
+          if(ftype==='before') CFG.testimonials[i].beforeUrl=dataUrl;
+          else CFG.testimonials[i].afterUrl=dataUrl;
+          const prev=document.getElementById(`prev-${ftype}-${i}`);
+          prev.innerHTML=`<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover"/>`;
+          const clearKey=`${ftype}-${i}`;
+          let cb=document.querySelector(`[data-clear="${clearKey}"]`);
+          if(!cb){
+            cb=document.createElement('button');
+            cb.dataset.clear=clearKey;
+            cb.style.cssText='width:100%;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600';
+            cb.textContent='✕ Quitar foto';
+            prev.after(cb);
+            setupClearBtnOne(cb);
+          }
+          admToast('📸 Foto cargada — guardá para aplicar');
+        };
+        imgEl.src=ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+function setupClearBtnOne(btn){
+  if(btn._clearBound) return; btn._clearBound=true;
+  btn.addEventListener('click',()=>{
+    const [ftype,idx]=btn.dataset.clear.split('-');
+    const i=parseInt(idx);
+    if(CFG.testimonials[i]){
+      if(ftype==='before') CFG.testimonials[i].beforeUrl='';
+      else CFG.testimonials[i].afterUrl='';
+    }
+    const prev=document.getElementById(`prev-${ftype}-${i}`);
+    if(prev) prev.innerHTML=`<div style="text-align:center;color:#94A3B8;font-size:12px;line-height:1.6;pointer-events:none">📷<br><strong>Clic para<br>subir foto</strong></div>`;
+    btn.remove();
+  });
+}
+function setupClearBtns(){ document.querySelectorAll('[data-clear]').forEach(setupClearBtnOne); }
+
+/* ── ITEM BUILDER HELPERS ── */
+function valItemHtml(it,i){
+  return `<div class="adm-val-item" style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span class="vi-num" style="font-size:11px;font-weight:700;color:#64748B">ÍTEM ${i+1}</span>
+      <button class="adm-del-btn del-val">✕ Eliminar</button>
+    </div>
+    <div class="adm-grid">
+      <div class="adm-field"><label>Ícono (emoji)</label><input class="vi-icon" value="${esc(it.icon||'')}"/></div>
+      <div class="adm-field"><label>Título</label><input class="vi-title" value="${esc(it.title||'')}"/></div>
+    </div>
+    <div class="adm-field"><label>Descripción</label><input class="vi-desc" value="${esc(it.desc||'')}"/></div>
+  </div>`;
+}
+
+function pilItemHtml(it,i){
+  const col=it.color||'blue';
+  return `<div class="adm-pil-item" style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span class="pi-num" style="font-size:11px;font-weight:700;color:#64748B">PILAR ${i+1}</span>
+      <button class="adm-del-btn del-pil">✕ Eliminar</button>
+    </div>
+    <input type="hidden" class="pi-num-val" value="${i+1}"/>
+    <div class="adm-grid">
+      <div class="adm-field"><label>Título</label><input class="pi-title" value="${esc(it.title||'')}"/></div>
+      <div class="adm-field"><label>Color</label>
+        <select class="pi-color">
+          <option value="blue"${col==='blue'?' selected':''}>🔵 Azul</option>
+          <option value="green"${col==='green'?' selected':''}>🟢 Verde</option>
+          <option value="purple"${col==='purple'?' selected':''}>🟣 Púrpura</option>
+        </select>
+      </div>
+    </div>
+    <div class="adm-field"><label>Descripción</label><textarea class="pi-desc">${esc(it.desc||'')}</textarea></div>
+  </div>`;
+}
+
+function testiItemHtml(t,i){
+  return `<div class="adm-testi-item" style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:11px;font-weight:700;color:#64748B">TESTIMONIO ${i+1}</span>
+      <button class="adm-del-btn del-testi">✕ Eliminar</button>
+    </div>
+    <div class="adm-grid">
+      <div class="adm-field"><label>Nombre</label><input class="tt-name" value="${esc(t.name||'')}"/></div>
+      <div class="adm-field"><label>Edad</label><input type="number" class="tt-age" value="${esc(t.age||'')}"/></div>
+    </div>
+    <div class="adm-field"><label>Resultado</label><input class="tt-result" value="${esc(t.result||'')}"/></div>
+    <div class="adm-field"><label>Testimonio</label><textarea class="tt-text">${esc(t.text||'')}</textarea></div>
+    <div class="adm-grid">
+      <div class="adm-field"><label>Avatar emoji</label><input class="tt-avatar" value="${esc(t.avatar||'')}"/></div>
+      <div class="adm-field"><label>Foto perfil URL</label><input class="tt-avatarUrl" value="${esc(t.avatarUrl||'')}"/></div>
+    </div>
+    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-top:8px">
+      <div style="font-size:11px;font-weight:700;color:#2563EB;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em">📸 Fotos Antes / Después</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#DC2626;text-transform:uppercase;margin-bottom:6px">ANTES</div>
+          <div id="prev-before-${i}" data-upload-target="before-${i}" style="width:100%;aspect-ratio:3/4;background:#F8FAFC;border:2px dashed #CBD5E1;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;margin-bottom:6px" title="Clic para subir foto">
+            ${t.beforeUrl?`<img src="${t.beforeUrl}" style="width:100%;height:100%;object-fit:cover"/>`:`<div style="text-align:center;color:#94A3B8;font-size:12px;line-height:1.6;pointer-events:none">📷<br><strong>Clic para<br>subir foto</strong></div>`}
+          </div>
+          <input type="file" id="file-before-${i}" accept="image/*" style="display:none" data-fi="${i}" data-ftype="before">
+          ${t.beforeUrl?`<button data-clear="before-${i}" style="width:100%;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600">✕ Quitar foto</button>`:''}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:6px">DESPUÉS</div>
+          <div id="prev-after-${i}" data-upload-target="after-${i}" style="width:100%;aspect-ratio:3/4;background:#F8FAFC;border:2px dashed #CBD5E1;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;margin-bottom:6px" title="Clic para subir foto">
+            ${t.afterUrl?`<img src="${t.afterUrl}" style="width:100%;height:100%;object-fit:cover"/>`:`<div style="text-align:center;color:#94A3B8;font-size:12px;line-height:1.6;pointer-events:none">📷<br><strong>Clic para<br>subir foto</strong></div>`}
+          </div>
+          <input type="file" id="file-after-${i}" accept="image/*" style="display:none" data-fi="${i}" data-ftype="after">
+          ${t.afterUrl?`<button data-clear="after-${i}" style="width:100%;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:5px 8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600">✕ Quitar foto</button>`:''}
+        </div>
+      </div>
+      <p style="font-size:11px;color:#64748B;margin-top:8px">💡 Clic en el cuadro para elegir una imagen. Se guarda automáticamente comprimida.</p>
+    </div>
+  </div>`;
+}
+
+function renumber(containerId, itemSel, numSel, prefix){
+  document.querySelectorAll(`#${containerId} ${itemSel}`).forEach((d,i)=>{
+    const n=d.querySelector(numSel); if(n) n.textContent=`${prefix} ${i+1}`;
+  });
+}
+
+/* ── add / delete: value items ── */
+document.getElementById('c-val-items').addEventListener('click',e=>{
+  if(e.target.classList.contains('del-val')){
+    e.target.closest('.adm-val-item').remove();
+    renumber('c-val-items','.adm-val-item','.vi-num','ÍTEM');
+  }
+});
+document.getElementById('add-val-item').addEventListener('click',()=>{
+  const c=document.getElementById('c-val-items');
+  const i=c.querySelectorAll('.adm-val-item').length;
+  c.insertAdjacentHTML('beforeend',valItemHtml({icon:'✓',title:'',desc:''},i));
+});
+
+/* ── add / delete: pillars ── */
+document.getElementById('c-pil-items').addEventListener('click',e=>{
+  if(e.target.classList.contains('del-pil')){
+    e.target.closest('.adm-pil-item').remove();
+    renumber('c-pil-items','.adm-pil-item','.pi-num','PILAR');
+    document.querySelectorAll('#c-pil-items .adm-pil-item .pi-num-val').forEach((el,i)=>el.value=i+1);
+  }
+});
+document.getElementById('add-pil-item').addEventListener('click',()=>{
+  const c=document.getElementById('c-pil-items');
+  const i=c.querySelectorAll('.adm-pil-item').length;
+  const colors=['blue','green','purple'];
+  c.insertAdjacentHTML('beforeend',pilItemHtml({title:'',desc:'',color:colors[i%3]},i));
+});
+
+/* ── add / delete: testimonials ── */
+document.getElementById('add-testi').addEventListener('click',()=>{
+  const c=document.getElementById('testi-items');
+  const i=c.querySelectorAll('.adm-testi-item').length;
+  CFG.testimonials.push({avatar:'⭐',avatarUrl:'',name:'',age:0,result:'',text:'',rating:5,beforeUrl:'',afterUrl:''});
+  c.insertAdjacentHTML('beforeend',testiItemHtml(CFG.testimonials[i],i));
+  setupUploadListeners();
+  setupClearBtns();
+});
+document.getElementById('testi-items').addEventListener('click',e=>{
+  if(e.target.classList.contains('del-testi')){
+    const item=e.target.closest('.adm-testi-item');
+    const idx=Array.from(document.querySelectorAll('#testi-items .adm-testi-item')).indexOf(item);
+    CFG.testimonials.splice(idx,1);
+    item.remove();
+    renumber('testi-items','.adm-testi-item','span:first-child','TESTIMONIO');
+  }
 });
 
 /* ── BOOT ── */
