@@ -228,7 +228,11 @@ img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-st
 .adm-toast.show{opacity:1;transform:translateY(0)}
 .adm-toast.err{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
 /* panels */
-.adm-panels{position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.adm-panels{position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:scroll;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.adm-panels::-webkit-scrollbar{width:8px}
+.adm-panels::-webkit-scrollbar-track{background:#E2E8F0;border-radius:4px}
+.adm-panels::-webkit-scrollbar-thumb{background:#94A3B8;border-radius:4px}
+.adm-panels::-webkit-scrollbar-thumb:hover{background:#64748B}
 .adm-panel{display:none;padding:20px}
 .adm-panel.active{display:block}
 /* form elements */
