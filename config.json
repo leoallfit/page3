@@ -102,8 +102,15 @@
   ],
   "cta": {
     "title": "¿Listo para transformarte?",
-    "sub": "Más de 150 personas ya dieron el primer paso. Es tu turno.",
+    "sub": "Más de 5,000 hombres ya dieron el primer paso. Es tu turno.",
     "btn": "COMPLETÁ EL FORMULARIO AHORA"
+  },
+  "social": {
+    "ig": "#",
+    "yt": "#",
+    "li": "#",
+    "wa": "3515146361",
+    "email": "allfit.asesorias@gmail.com"
   },
   "footer": {
     "tagline": "Entrenamiento online para hombres que quieren aumentar su masa muscular.",
@@ -123,8 +130,7 @@
         "type": "text",
         "required": true,
         "errMsg": "Ingresá tu nombre",
-        "half": true,
-        "options": ""
+        "half": true
       },
       {
         "id": "email",
@@ -132,8 +138,7 @@
         "type": "email",
         "required": true,
         "errMsg": "Email inválido",
-        "half": true,
-        "options": ""
+        "half": true
       },
       {
         "id": "edad",
@@ -141,8 +146,15 @@
         "type": "number",
         "required": true,
         "errMsg": "Mínimo 25 años",
-        "half": true,
-        "options": ""
+        "half": true
+      },
+      {
+        "id": "peso",
+        "label": "Peso (kg)",
+        "type": "number",
+        "required": true,
+        "errMsg": "Ingresá tu peso",
+        "half": true
       },
       {
         "id": "experiencia",
@@ -168,8 +180,7 @@
         "type": "tel",
         "required": true,
         "errMsg": "Ingresá tu WhatsApp",
-        "half": true,
-        "options": ""
+        "half": true
       },
       {
         "id": "instagram",
@@ -177,8 +188,7 @@
         "type": "text",
         "required": true,
         "errMsg": "Ingresá tu Instagram",
-        "half": true,
-        "options": ""
+        "half": true
       }
     ]
   }
