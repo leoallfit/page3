@@ -121,11 +121,11 @@
   },
   "form": {
     "title": "Comenzá tu transformación hoy",
-    "sub": "Completá el formulario y recibirás tu plan personalizado en menos de 24 horas.",
+    "sub": "Completá el formulario y me pongo en contacto con vos.",
     "btn": "QUIERO MI PLAN PERSONALIZADO",
     "okTitle": "¡Gracias por registrarte!",
-    "okMsg": "En menos de 24 horas recibirás tu plan personalizado. ¡Bienvenido a ALLFIT! 💪",
-    "formspree": "",
+    "okMsg": "En un momento te hablo y comenzamos a cambiar. ¡Bienvenido a ALLFIT! ",
+    "formspree": "https://formspree.io/f/mbdbgaap",
     "fields": [
       {
         "id": "nombre",
