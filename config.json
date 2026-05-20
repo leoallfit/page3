@@ -1,13 +1,4 @@
 {
-  "colors": {
-    "primary": "#1F2937",
-    "accent": "#2563EB",
-    "green": "#10B981",
-    "purple": "#8B5CF6",
-    "bgLight": "#F3F4F6",
-    "bgDark": "#0F172A",
-    "textSec": "#6B7280"
-  },
   "hero": {
     "badge": "Programa de entrenamiento online",
     "headline": "Aumentá tu masa<br>muscular ",
@@ -111,15 +102,8 @@
   ],
   "cta": {
     "title": "¿Listo para transformarte?",
-    "sub": "Más de 5,000 hombres ya dieron el primer paso. Es tu turno.",
+    "sub": "Más de 150 personas ya dieron el primer paso. Es tu turno.",
     "btn": "COMPLETÁ EL FORMULARIO AHORA"
-  },
-  "social": {
-    "ig": "#",
-    "yt": "#",
-    "li": "#",
-    "wa": "",
-    "email": "allfit.asesorias@gmail.com"
   },
   "footer": {
     "tagline": "Entrenamiento online para hombres que quieren aumentar su masa muscular.",
