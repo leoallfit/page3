@@ -10,7 +10,7 @@
   },
   "hero": {
     "badge": "Programa de entrenamiento online",
-    "headline": "Aumentá tu masa<br>muscular en <e",
+    "headline": "Aumentá tu masa<br>muscular ",
     "sub": "Entrenamiento online + Plan alimenticio + Comunidad de apoyo. Resultados garantizados o te devolvemos el 100%.",
     "cta": "COMPLETÁ EL FORMULARIO",
     "bgImage": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80",
@@ -136,6 +136,74 @@
     "btn": "QUIERO MI PLAN PERSONALIZADO",
     "okTitle": "¡Gracias por registrarte!",
     "okMsg": "En menos de 24 horas recibirás tu plan personalizado. ¡Bienvenido a ALLFIT! 💪",
-    "formspree": ""
+    "formspree": "",
+    "fields": [
+      {
+        "id": "nombre",
+        "label": "Nombre completo",
+        "type": "text",
+        "required": true,
+        "errMsg": "Ingresá tu nombre",
+        "half": true
+      },
+      {
+        "id": "email",
+        "label": "Email",
+        "type": "email",
+        "required": true,
+        "errMsg": "Email inválido",
+        "half": true
+      },
+      {
+        "id": "edad",
+        "label": "Edad",
+        "type": "number",
+        "required": true,
+        "errMsg": "Mínimo 25 años",
+        "half": true
+      },
+      {
+        "id": "peso",
+        "label": "Peso (kg)",
+        "type": "number",
+        "required": true,
+        "errMsg": "Ingresá tu peso",
+        "half": true
+      },
+      {
+        "id": "experiencia",
+        "label": "Experiencia",
+        "type": "select",
+        "required": true,
+        "errMsg": "Seleccioná una opción",
+        "half": true,
+        "options": "Principiante (menos de 1 año)|Intermedio (1-3 años)|Avanzado (más de 3 años)"
+      },
+      {
+        "id": "objetivo",
+        "label": "Objetivo",
+        "type": "select",
+        "required": true,
+        "errMsg": "Seleccioná una opción",
+        "half": true,
+        "options": "Ganar masa muscular|Perder grasa y mantener músculo|Fuerza pura"
+      },
+      {
+        "id": "telefono",
+        "label": "WhatsApp",
+        "type": "tel",
+        "required": true,
+        "errMsg": "Ingresá tu WhatsApp",
+        "half": true
+      },
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "type": "text",
+        "required": true,
+        "errMsg": "Ingresá tu Instagram",
+        "half": true
+      }
+    ]
   }
 }
