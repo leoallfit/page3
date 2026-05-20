@@ -49,19 +49,22 @@
         "n": "01",
         "color": "blue",
         "title": "Entrenamientos Online",
-        "desc": "Videotutoriales HD con ejercicios diseñados para hipertrofia. Rutinas de 45 minutos, 4-5 días por semana. Progresión programada."
+        "desc": "Rutinas de 45 minutos, 3 - 4 días por semana. Progresión programada.",
+        "imageUrl": ""
       },
       {
         "n": "02",
         "color": "green",
         "title": "Planes Nutricionales",
-        "desc": "Dietas personalizadas según tu peso, altura y objetivos. Recetas prácticas. Macros calculados automáticamente."
+        "desc": "Dietas personalizadas según tus objetivos. Recetas prácticas. Macros calculados.",
+        "imageUrl": ""
       },
       {
         "n": "03",
         "color": "purple",
         "title": "Comunidad Privada",
-        "desc": "Grupo exclusivo en Telegram y Discord. Comparte progreso, resuelve dudas. Soporte 24/7 con coaches certificados."
+        "desc": "Grupo exclusivo en Whatsapp. Comparte progreso, resuelve dudas. ",
+        "imageUrl": ""
       }
     ]
   },
@@ -106,9 +109,9 @@
     "btn": "COMPLETÁ EL FORMULARIO AHORA"
   },
   "social": {
-    "ig": "https://www.instagram.com/leo.allfit/",
-    "yt": "",
-    "li": "",
+    "ig": "#https://www.instagram.com/leo.allfit/",
+    "yt": "#",
+    "li": "#",
     "wa": "3515146361",
     "email": "allfit.asesorias@gmail.com"
   },
