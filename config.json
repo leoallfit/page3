@@ -130,7 +130,8 @@
         "type": "text",
         "required": true,
         "errMsg": "Ingresá tu nombre",
-        "half": true
+        "half": true,
+        "options": ""
       },
       {
         "id": "email",
@@ -138,7 +139,8 @@
         "type": "email",
         "required": true,
         "errMsg": "Email inválido",
-        "half": true
+        "half": true,
+        "options": ""
       },
       {
         "id": "edad",
@@ -146,15 +148,8 @@
         "type": "number",
         "required": true,
         "errMsg": "Mínimo 25 años",
-        "half": true
-      },
-      {
-        "id": "peso",
-        "label": "Peso (kg)",
-        "type": "number",
-        "required": true,
-        "errMsg": "Ingresá tu peso",
-        "half": true
+        "half": true,
+        "options": ""
       },
       {
         "id": "experiencia",
@@ -180,7 +175,8 @@
         "type": "tel",
         "required": true,
         "errMsg": "Ingresá tu WhatsApp",
-        "half": true
+        "half": true,
+        "options": ""
       },
       {
         "id": "instagram",
@@ -188,7 +184,8 @@
         "type": "text",
         "required": true,
         "errMsg": "Ingresá tu Instagram",
-        "half": true
+        "half": true,
+        "options": ""
       }
     ]
   }
