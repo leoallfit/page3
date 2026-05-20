@@ -31,7 +31,7 @@
   },
   "value": {
     "title": "¿Por qué elegir ALLFIT?",
-    "sub": "No somos otro programa genérico. Diseñamos cada aspecto para que logres resultados.",
+    "sub": "No es otro programa genérico. Diseño cada aspecto para que logres resultados.",
     "items": [
       {
         "icon": "🎯",
@@ -45,13 +45,8 @@
       },
       {
         "icon": "👥",
-        "title": "Comunidad activa de 5,000+ hombres",
+        "title": "Comunidad activa de Whatsapp ",
         "desc": "Rodeate de personas con los mismos objetivos. La motivación es clave."
-      },
-      {
-        "icon": "🛡️",
-        "title": "Garantía: resultados o devolución 100%",
-        "desc": "Si seguís el programa y no ves resultados, te devolvemos cada peso."
       }
     ]
   },
