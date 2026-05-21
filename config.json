@@ -181,7 +181,7 @@
         "required": true,
         "errMsg": "Seleccioná una opción",
         "half": true,
-        "options": "Ganar masa muscular|Perder grasa y mantener músculo|Fuerza pura"
+        "options": "Ganar masa muscular|Perder grasa y mantener músculo"
       },
       {
         "id": "telefono",
