@@ -200,6 +200,15 @@
         "errMsg": "Ingresá tu Instagram",
         "half": true,
         "options": ""
+      },
+      {
+        "id": "compromiso",
+        "label": "Qué tan comprometido estás? 1 nada | 10 completo",
+        "type": "select",
+        "required": true,
+        "errMsg": "Campo requerido",
+        "half": true,
+        "options": "1|2|3|4|5|6|7|8|9|10"
       }
     ]
   }
