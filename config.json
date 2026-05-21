@@ -161,7 +161,7 @@
         "label": "Edad",
         "type": "number",
         "required": true,
-        "errMsg": "",
+        "errMsg": "Mínimo 25 años",
         "half": true,
         "options": ""
       },
@@ -181,7 +181,7 @@
         "required": true,
         "errMsg": "Seleccioná una opción",
         "half": true,
-        "options": "Ganar masa muscular|Perder grasa y mantener músculo "
+        "options": "Ganar masa muscular|Perder grasa y mantener músculo|Fuerza pura"
       },
       {
         "id": "telefono",
